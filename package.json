@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "cesium": "^1.126.0",
+    "sass-embedded": "^1.85.0",
+    "vite": "^6.1.0",
+    "vite-plugin-cesium": "^1.2.23"
+  }
+}
