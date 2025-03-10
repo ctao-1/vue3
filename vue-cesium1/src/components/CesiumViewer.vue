@@ -124,7 +124,6 @@ onMounted(() => {
   });
 
 
-
   // 将点标记添加到Viewer中
   viewer.entities.add(ruijinPoint);
   viewer.entities.add(wuqizhenPoint);
@@ -133,7 +132,6 @@ onMounted(() => {
 
 
 </script>
-
 
 
 <style lang="scss" scoped>
