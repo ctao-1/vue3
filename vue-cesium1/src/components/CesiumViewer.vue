@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
 // import {Viewer} from 'cesium';
-import { Viewer, Entity, PolylineGraphics, Cartesian3, Color } from 'cesium';
+import { Viewer, Entity, PolylineGraphics, Cartesian3, Color, PointGraphics } from 'cesium';
 import { onMounted } from 'vue'
  
 //引入cesium的css文件
@@ -46,7 +46,7 @@ const changzheng1Coordinates = [
 // 这里是获取到的红2长征路线经纬度坐标数组
 const changzheng2Coordinates = [
   // 这里需要替换为实际的长征路线坐标数据
-  [109.644167, 29.399722], // 湖南桑植县（起点）
+  [109.644167, 29.399722],// 湖南桑植县（起点）
   [109.850000, 28.999722],//湖南永顺县
   [109.443056, 29.457500],//湖南龙山县
   [109.138056, 29.680833],//湖北咸丰县
@@ -87,7 +87,7 @@ onMounted(() => {
  
     //设置相机的初始位置
     viewer.camera.setView({
-        destination: Cesium.Cartesian3.fromDegrees(106.918056, 27.698611, 2000000)
+        destination: Cesium.Cartesian3.fromDegrees(106.918056, 27.698611, 5000000)
     });
   // 将经纬度数组转换为Cartesian3数组
   const cartesian3Positions1 = changzheng1Coordinates.map((coord) => {
@@ -117,6 +117,44 @@ onMounted(() => {
   // 将路线实体添加到Viewer中
   viewer.entities.add(changzhengEntity1);
   viewer.entities.add(changzhengEntity2);
+
+  // 江西瑞金的经纬度
+  const ruijinCoord = [116.026667, 25.885556];
+  // 陕西吴起镇的经纬度
+  const wuqizhenCoord = [108.175000, 36.927500];
+  const zunyiCoord = [106.918056, 27.698611];
+
+  // 创建江西瑞金的点标记
+  const ruijinPoint = new Entity({
+    position: Cartesian3.fromDegrees(ruijinCoord[0], ruijinCoord[1]),
+    point: new PointGraphics({
+      color: Color.YELLOW,
+      pixelSize: 10
+    })
+  });
+
+  // 创建陕西吴起镇的点标记
+  const wuqizhenPoint = new Entity({
+    position: Cartesian3.fromDegrees(wuqizhenCoord[0], wuqizhenCoord[1]),
+    point: new PointGraphics({
+      color: Color.YELLOW,
+      pixelSize: 10
+    })
+  });
+
+  // 创建陕西吴起镇的点标记
+  const zunyiPoint = new Entity({
+    position: Cartesian3.fromDegrees(zunyiCoord[0], zunyiCoord[1]),
+    point: new PointGraphics({
+      color: Color.YELLOW,
+      pixelSize: 10
+    })
+  });
+
+  // 将点标记添加到Viewer中
+  viewer.entities.add(ruijinPoint);
+  viewer.entities.add(wuqizhenPoint);
+  viewer.entities.add(zunyiPoint);
 })
 
 
