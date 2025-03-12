@@ -100,6 +100,7 @@ onMounted(() => {
  
     //创建cesium的viewer对象
     const viewer = new Viewer('cesiumContainer',{
+      terrain: Cesium.Terrain.fromWorldTerrain(),
       baseLayerPicker: true,
       timeline: true,// 必须为true显示时间线组件（如不想显示可以使用样式层叠表修改display：none） 否则viewer.timeline.zoomTo会报undefined错误
       homeButton: false,
