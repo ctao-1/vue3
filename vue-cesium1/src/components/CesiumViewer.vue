@@ -114,9 +114,9 @@ onMounted(() => {
     });
  
     //设置相机的初始位置
-    viewer.camera.setView({
-        destination: Cesium.Cartesian3.fromDegrees(106.918056, 27.698611, 5000000)
-    });
+    // viewer.camera.setView({
+    //     destination: Cesium.Cartesian3.fromDegrees(106.918056, 27.698611, 5000000)
+    // });
 
 
   // 将路线实体添加到Viewer中
@@ -186,17 +186,6 @@ onMounted(() => {
     maximumLevel: 10
   });
   viewer.imageryLayers.addImageryProvider(iboMap);
-
-  // 叠加地形服务
-  const terrainUrls = [];
-  for (let i = 0; i < subdomains.length; i++) {
-    const url = tdtUrl.replace('{s}', subdomains[i]) + 'mapservice/swdx?T=elv_c&tk=' + token;
-    terrainUrls.push(url);
-  }
-  const provider = new Cesium.GeoTerrainProvider({
-    urls: terrainUrls
-  });
-  viewer.terrainProvider = provider;
 
   // 将三维球定位到中国
   viewer.camera.flyTo({
