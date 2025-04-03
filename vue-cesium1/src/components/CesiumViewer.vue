@@ -1,7 +1,14 @@
 <template>
     <div id="cesiumContainer">
       <button id="toggleRouteButton" @click="toggleRouteVisibility">{{ routeVisible ? '关闭路线' : '显示路线' }}</button>
-      <button id="toggleLayerButton" @click="toggleLayerVisibility">{{ layerVisible ? '显示图层' : '切换图层' }}</button>
+      <div id="layerDropdown">
+      <label for="layerSelect">选择图层：</label>
+      <select id="layerSelect" @change="changeLayer">
+        <option v-for="(layer, index) in tdtLayers" :key="index" :value="index">
+          {{ layer.name }}
+        </option>
+      </select>
+    </div>
     </div>
   
 </template>
@@ -14,6 +21,7 @@
 import {Viewer} from 'cesium';
 import { Entity, PolylineGraphics, Cartesian3, Color, PointGraphics, UrlTemplateImageryProvider, WebMercatorTilingScheme } from 'cesium';
 import { onMounted, ref } from 'vue'
+import { ImageryLayer } from 'cesium';
  
 //引入cesium的css文件
 import '/public/static/CesiumAssets/Widgets/widgets.css'
@@ -24,7 +32,7 @@ import { changzheng1Coordinates, changzheng2Coordinates }  from '../coordinates/
 import { tiandituEffect } from '../tianditu/tiandituEffect';
 // 用于跟踪路线的显示状态
 const routeVisible = ref(true);
-const layerVisible = ref(true);
+// const layerVisible = ref(true);
 // 将经纬度数组转换为Cartesian3数组
 const cartesian3Positions1 = changzheng1Coordinates.map((coord) => {
   return Cartesian3.fromDegrees(coord[0], coord[1]);
@@ -126,28 +134,32 @@ const tdtLayers = [
 ];
 
 const currentLayerIndex = ref(-1);
-import type { ImageryLayer } from 'cesium';
 const currentLayer = ref<ImageryLayer | null>(null);
 
 //the actual Viewer instance is stored in viewer.value
 const viewer = ref<Viewer | null>(null);
 
-const toggleLayerVisibility = () => {
+// 切换图层函数
+const changeLayer = (event: Event) => {
+  const selectedIndex = parseInt((event.target as HTMLSelectElement).value);
+
   if (currentLayer.value && viewer.value) {
     viewer.value.imageryLayers.remove(currentLayer.value);
   }
-  currentLayerIndex.value = (currentLayerIndex.value + 1) % tdtLayers.length;
-  const layerConfig = tdtLayers[currentLayerIndex.value];
+
+  const layerConfig = tdtLayers[selectedIndex];
   const layer = new UrlTemplateImageryProvider({
     url: layerConfig.url,
     subdomains: ['0', '1', '2', '3', '4', '5', '6', '7'],
     tilingScheme: new WebMercatorTilingScheme()
   });
+
   if (viewer.value) {
     currentLayer.value = viewer.value.imageryLayers.addImageryProvider(layer);
   }
-};
 
+  currentLayerIndex.value = selectedIndex;
+};
 
 //vue生命周期钩子函数
 onMounted(() => {
@@ -190,10 +202,8 @@ onMounted(() => {
     tiandituEffect(viewer.value)
   }
   // 将viewer对象暴露出去 供其他方法使用
-  // return { viewer };
+   //return { viewer };
 });
-
-
 </script>
 
 

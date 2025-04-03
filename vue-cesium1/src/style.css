@@ -44,7 +44,7 @@ html, body {
 #toggleRouteButton {
   position: absolute;
   top: 10px; /* 距离容器顶部 10px */
-  left: 10px; /* 距离容器左侧 10px */
+  right: 10px; /* 距离容器左侧 10px */
   z-index: 10; /* 确保按钮位于 Cesium 容器之上 */
   padding: 5px 10px;
   background-color: rgba(0, 0, 0, 0.6); /* 半透明背景 */
@@ -58,19 +58,18 @@ html, body {
   background-color: rgba(0, 0, 0, 0.8); /* 鼠标悬停时背景颜色加深 */
 }
 
-#toggleLayerButton {
+#layerDropdown {
   position: absolute;
-  bottom: 10px; /* 距离容器底部 10px */
-  right: 10px; /* 距离容器右侧 10px */
-  z-index: 10; /* 确保按钮位于 Cesium 容器之上 */
-  padding: 5px 10px;
-  background-color: rgba(0, 0, 0, 0.6); /* 半透明背景 */
-  color: white;
-  border: none;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
   border-radius: 4px;
-  cursor: pointer;
 }
 
-#toggleLayerButton:hover {
-  background-color: rgba(0, 0, 0, 0.8); /* 鼠标悬停时背景颜色加深 */
+#layerSelect {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
