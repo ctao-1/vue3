@@ -53,9 +53,9 @@ export function tiandituEffect(viewer: Viewer) {
   });
   viewer.imageryLayers.addImageryProvider(iboMap);
 
-  // 将三维球定位到中国
+  // 将三维球定位到中国altitude=17850000
   viewer.camera.flyTo({
-    destination: Cartesian3.fromDegrees(103.84, 31.15, 17850000),
+    destination: Cartesian3.fromDegrees(103.84, 31.15, 10000000),
     orientation: {
       heading: CesiumMath.toRadians(348.4202942851978),
       pitch: CesiumMath.toRadians(-89.74026687972041),

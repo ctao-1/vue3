@@ -1,16 +1,29 @@
 <template>
-    <div id="cesiumContainer">
-      <button id="toggleRouteButton" @click="toggleRouteVisibility">{{ routeVisible ? '关闭路线' : '显示路线' }}</button>
-      <div id="layerDropdown">
+  <div id="cesiumContainer">
+    <!-- <button id="toggleRouteButton" @click="toggleRouteVisibility">{{ routeVisible ? '关闭路线' : '显示路线' }}</button> -->
+    <!-- 复选框  -->
+    <div id="routeDropdown">
+      <label for="routeSelect">选择路线：</label>
+      <select id="routeSelect" v-model="selectedRoutes">
+        <option type="checkbox" value="changzheng1">红一方面军长征路线</option>
+        <option type="checkbox" value="changzheng2">红二方面军长征路线</option>
+      </select>
+      <button @click="loadRoutes">加载</button>
+    </div>
+    <div id="layerDropdown">
       <label for="layerSelect">选择图层：</label>
-      <select id="layerSelect" @change="changeLayer">
+      <select id="layerSelect" v-model="selectLayers" @change="changeLayer">
         <option v-for="(layer, index) in tdtLayers" :key="index" :value="index">
           {{ layer.name }}
         </option>
       </select>
     </div>
+    <div id="searchBar">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" v-model="searchQuery" placeholder="请输入搜索内容" />
+      <button @click="performSearch">搜索</button>
     </div>
-  
+  </div>  
 </template>
 
 <style lang="scss" scoped>
@@ -64,14 +77,29 @@ const changzhengEntities = ref<Entity[]>([])
 // 将路线实体添加到数组中
 changzhengEntities.value = [changzhengEntity1, changzhengEntity2];
 
-// 点击事件处理函数
-const toggleRouteVisibility = () => {
-  routeVisible.value = !routeVisible.value;
+// 图层切换点击事件处理函数
+// const toggleRouteVisibility = () => {
+//   routeVisible.value = !routeVisible.value;
+//   for (let i = 0; i < changzhengEntities.value.length; i++) {
+//     changzhengEntities.value[i].show = routeVisible.value;
+//   }
+// };
+
+const selectedRoutes = ref<string[]>([]); // 用于存储选中的复选框值
+//加载所选路线方法
+const loadRoutes = () => {
+  // 清除之前的路线显示
   for (let i = 0; i < changzhengEntities.value.length; i++) {
-    changzhengEntities.value[i].show = routeVisible.value;
+    changzhengEntities.value[i].show = false; // 隐藏之前的路线
+  }
+  // 根据选中的复选框加载对应的路线
+  if (selectedRoutes.value.includes('changzheng1')) {
+    changzhengEntities.value[0].show = true; // 显示红一方面军长征路线
+  }
+  if (selectedRoutes.value.includes('changzheng2')) {
+    changzhengEntities.value[1].show = true; // 显示红二方面军长征路线
   }
 };
-
 // 江西瑞金的经纬度
 const ruijinCoord = [116.026667, 25.885556];
 // 陕西吴起镇的经纬度
@@ -105,6 +133,7 @@ const zunyiPoint = new Entity({
   })
 });
 
+const selectLayers = ref<string[]>([]);
 // 天地图图层配置
 const tdtLayers = [
   {
@@ -159,6 +188,15 @@ const changeLayer = (event: Event) => {
   }
 
   currentLayerIndex.value = selectedIndex;
+};
+
+// 搜索框绑定的输入内容
+const searchQuery = ref('');
+
+// 搜索按钮点击事件
+const performSearch = () => {
+  console.log('搜索内容:', searchQuery.value);
+  // 在这里实现搜索逻辑，例如定位到某个地点
 };
 
 //vue生命周期钩子函数

@@ -43,7 +43,7 @@ html, body {
 }
 #toggleRouteButton {
   position: absolute;
-  top: 10px; /* 距离容器顶部 10px */
+  bottom: 10px; /* 距离容器顶部 10px */
   right: 10px; /* 距离容器左侧 10px */
   z-index: 10; /* 确保按钮位于 Cesium 容器之上 */
   padding: 5px 10px;
@@ -72,4 +72,80 @@ html, body {
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+#routeDropdown {
+  position: absolute;
+  top: 10px; /* 调整位置 */
+  right: 10px;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-radius: 4px;
+}
+
+#routeSelect {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 150px; /* 设置宽度 */
+  /* height: auto; 自动调整高度 */
+}
+
+#routeDropdown button {
+  /*margin-top: 5px;*/
+  padding: 5px 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#routeDropdown button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+#searchBar {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 5px 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 搜索框 */
+#searchBar .search-icon {
+  margin-right: 5px;
+  font-size: 16px;
+}
+
+#searchInput {
+  border: 1px ;/*solid #cccccccf */
+  color:rgb(60, 62, 155);
+  background-color:rgba(6, 6, 6, 0.6);
+  border-radius: 4px;
+  padding: 5px;
+  width: 200px;
+  outline: none;
+}
+
+#searchBar button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: rgb(60, 62, 155);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#searchBar button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }
