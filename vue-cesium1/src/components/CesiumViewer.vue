@@ -108,27 +108,27 @@ const zunyiPoint = new Entity({
 // 天地图图层配置
 const tdtLayers = [
   {
-    url: 'http://t{s}.tianditu.gov.cn/vec_w/wmts?tk=aff67efbdd6b0daba90549b44b0d1c4d',
+    url: 'http://t{s}.tianditu.gov.cn/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=aff67efbdd6b0daba90549b44b0d1c4d',
     name: '天地图矢量地图'
   },
   {
-    url: 'http://t{s}.tianditu.gov.cn/cva_w/wmts?tk=aff67efbdd6b0daba90549b44b0d1c4d',
+    url: 'http://t{s}.tianditu.gov.cn/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=aff67efbdd6b0daba90549b44b0d1c4d',
     name: '天地图矢量注记'
   },
   {
-    url: 'http://t{s}.tianditu.gov.cn/img_w/wmts?tk=aff67efbdd6b0daba90549b44b0d1c4d',
+    url: 'http://t{s}.tianditu.gov.cn/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=aff67efbdd6b0daba90549b44b0d1c4d',
     name: '天地图影像底图'
   },
   {
-    url: 'http://t{s}.tianditu.gov.cn/cia_w/wmts?tk=aff67efbdd6b0daba90549b44b0d1c4d',
+    url: 'http://t{s}.tianditu.gov.cn/DataServer?T=cia_w&x={x}&y={y}&l={z}&tk=aff67efbdd6b0daba90549b44b0d1c4d',
     name: '天地图影像注记'
   },
   {
-    url: 'http://t{s}.tianditu.gov.cn/ter_w/wmts?tk=aff67efbdd6b0daba90549b44b0d1c4d',
+    url: 'http://t{s}.tianditu.gov.cn/DataServer?T=ter_w&x={x}&y={y}&l={z}&tk=aff67efbdd6b0daba90549b44b0d1c4d',
     name: '天地图地形晕渲'
   },
   {
-    url: 'http://t{s}.tianditu.gov.cn/cta_w/wmts?tk=aff67efbdd6b0daba90549b44b0d1c4d',
+    url: 'http://t{s}.tianditu.gov.cn/DataServer?T=cta_w&x={x}&y={y}&l={z}&tk=aff67efbdd6b0daba90549b44b0d1c4d',
     name: '天地图地形注记'
   }
 ];

@@ -36,13 +36,13 @@ export function tiandituEffect(viewer: Viewer) {
   ];
 
   // 叠加影像服务
-  const imgMap = new UrlTemplateImageryProvider({
-    url: tdtUrl + 'DataServer?T=img_w&x={x}&y={y}&l={z}&tk=' + token,
-    subdomains: subdomains,
-    tilingScheme: new WebMercatorTilingScheme(),
-    maximumLevel: 18,
-  });
-  viewer.imageryLayers.addImageryProvider(imgMap);
+  // const imgMap = new UrlTemplateImageryProvider({
+  //   url: tdtUrl + 'DataServer?T=img_w&x={x}&y={y}&l={z}&tk=' + token,
+  //   subdomains: subdomains,
+  //   tilingScheme: new WebMercatorTilingScheme(),
+  //   maximumLevel: 18,
+  // });
+  // viewer.imageryLayers.addImageryProvider(imgMap);
 
   // 叠加国界服务
   const iboMap = new UrlTemplateImageryProvider({
