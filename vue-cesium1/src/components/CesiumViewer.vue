@@ -10,9 +10,13 @@
       </select>
       <button @click="loadRoutes">加载</button>
     </div>
-    <div id="layerDropdown">
-      <label for="layerSelect">选择图层：</label>
-      <select id="layerSelect" v-model="selectLayers" @change="changeLayer">
+    <div id="layerDropdown" @mouseleave="handleMouseLeave">
+      <!-- 圆形按钮 -->
+       <button id="layerButton" @click="toggleDropdown" @mouseenter="handleMouseEnter">
+        <img src="https://cdn-icons-png.flaticon.com/512/854/854878.png" alt="地图图标" />
+      </button>
+      <!-- 下拉菜单 -->
+      <select id="layerSelect" v-show="dropdownVisible" v-model="selectLayers" @change="changeLayer" size="6">
         <option v-for="(layer, index) in tdtLayers" :key="index" :value="index">
           {{ layer.name }}
         </option>
@@ -160,6 +164,37 @@ const currentLayer = ref<ImageryLayer | null>(null);
 //the actual Viewer instance is stored in viewer.value
 const viewer = ref<Viewer | null>(null);
 
+const dropdownVisible = ref(false); // 控制下拉菜单的显示状态
+const isMouseEnter = ref(true);
+const isMouseLeaved = ref(true); // 控制 handleMouseLeave 是否生效
+const istoggleDropdown = ref(true);
+// 鼠标移入时显示下拉菜单
+const handleMouseEnter = () => {
+  if (!dropdownVisible.value) {
+    dropdownVisible.value = true;
+    isMouseEnter.value = false; // toggleDropdown语句切换
+  }
+};
+// 鼠标移出时隐藏下拉菜单（如果未点击按钮）
+const handleMouseLeave = () => {
+  if (dropdownVisible.value && isMouseLeaved.value) {
+    dropdownVisible.value = false;
+    isMouseEnter.value = true;
+  }
+};
+// 点击按钮切换下拉菜单显示状态
+const toggleDropdown = () => {
+  if(!isMouseEnter.value && istoggleDropdown.value){
+    isMouseLeaved.value = !isMouseLeaved.value; // 禁用 handleMouseEnter
+    dropdownVisible.value = true;
+    istoggleDropdown.value = false;
+  }else{
+    isMouseLeaved.value = !isMouseLeaved.value; // 禁用 handleMouseEnter
+    dropdownVisible.value = !dropdownVisible.value;
+    istoggleDropdown.value = true;
+  }
+};
+
 // 切换图层函数
 const changeLayer = (event: Event) => {
   const selectedIndex = parseInt((event.target as HTMLSelectElement).value);
@@ -227,5 +262,3 @@ onMounted(() => {
    //return { viewer };
 });
 </script>
-
-

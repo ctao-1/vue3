@@ -63,15 +63,41 @@ html, body {
   top: 10px;
   left: 10px;
   z-index: 10;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 5px;
-  border-radius: 4px;
+}
+
+#layerButton {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#layerButton img {
+  width: 30px;
+  height: 30px;
+}
+
+#layerButton:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 #layerSelect {
-  padding: 5px;
-  border: 1px solid #ccc;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 120px;
+  border: 1px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
+  color: rgb(60, 62, 155);
+  background-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
 }
 
 #routeDropdown {
