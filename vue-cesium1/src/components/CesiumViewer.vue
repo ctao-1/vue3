@@ -77,14 +77,6 @@ const changzhengEntities = ref<Entity[]>([])
 // 将路线实体添加到数组中
 changzhengEntities.value = [changzhengEntity1, changzhengEntity2];
 
-// 图层切换点击事件处理函数
-// const toggleRouteVisibility = () => {
-//   routeVisible.value = !routeVisible.value;
-//   for (let i = 0; i < changzhengEntities.value.length; i++) {
-//     changzhengEntities.value[i].show = routeVisible.value;
-//   }
-// };
-
 const selectedRoutes = ref<string[]>([]); // 用于存储选中的复选框值
 //加载所选路线方法
 const loadRoutes = () => {
@@ -190,9 +182,7 @@ const changeLayer = (event: Event) => {
   currentLayerIndex.value = selectedIndex;
 };
 
-// 搜索框绑定的输入内容
-const searchQuery = ref('');
-
+const searchQuery = ref('');// 搜索框绑定的输入内容
 // 搜索按钮点击事件
 const performSearch = () => {
   console.log('搜索内容:', searchQuery.value);
@@ -202,11 +192,10 @@ const performSearch = () => {
 //vue生命周期钩子函数
 onMounted(() => {
   Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI1MThkNmVjMi1kZjU3LTRiYjUtOGM2ZC0wYjk2YzFlNTE5YzUiLCJpZCI6MjcwODk5LCJpYXQiOjE3Mzc2MDc1NDh9.Wpl35AaD3rKSqskH_gRtGNnAYDnaAy9C3vZsU8jkTHw';
-    //设置cesium的静态资源地址
-    (window as any).CESIUM_BASE_URL = 'static/cesiumAssets'
+  (window as any).CESIUM_BASE_URL = 'static/cesiumAssets'//设置cesium的静态资源地址
  
-    //创建cesium的viewer对象
-    viewer.value = new Viewer('cesiumContainer',{
+  //创建cesium的viewer对象
+  viewer.value = new Viewer('cesiumContainer',{
       terrain: Cesium.Terrain.fromWorldTerrain(),
       baseLayerPicker: true,
       timeline: true,// 必须为true显示时间线组件（如不想显示可以使用样式层叠表修改display：none） 否则viewer.timeline.zoomTo会报undefined错误
@@ -219,14 +208,9 @@ onMounted(() => {
       animation: false,
       shouldAnimate: true
     });
- 
-    //设置相机的初始位置
-    // viewer.camera.setView({
-    //     destination: Cesium.Cartesian3.fromDegrees(106.918056, 27.698611, 5000000)
-    // });
 
-     // 将路线实体添加到Viewer中
-     changzhengEntities.value.forEach(entity => {
+  // 将路线实体添加到Viewer中
+  changzhengEntities.value.forEach(entity => {
     (viewer.value as Viewer).entities.add(entity);
   });
 
