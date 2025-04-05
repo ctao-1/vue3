@@ -9,6 +9,7 @@
         <option type="checkbox" value="changzheng2">红二方面军长征路线</option>
       </select>
       <button @click="loadRoutes">加载</button>
+      <button>动画</button>
     </div>
     <div id="layerDropdown" @mouseleave="handleMouseLeave">
       <!-- 圆形按钮 -->
