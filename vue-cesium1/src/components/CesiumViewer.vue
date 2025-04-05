@@ -5,7 +5,7 @@
     <div id="routeDropdown">
       <label for="routeSelect">选择路线：</label>
       <select id="routeSelect" v-model="selectedRoutes">
-        <option type="checkbox" value="changzheng1">红一方面军长征路线</option>
+        <option type="checkbox" value="changzheng1">中央红军（红一方面军）长征路线</option>
         <option type="checkbox" value="changzheng2">红二方面军长征路线</option>
       </select>
       <button @click="loadRoutes">加载</button>
