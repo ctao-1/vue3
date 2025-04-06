@@ -166,26 +166,23 @@ const currentLayer = ref<ImageryLayer | null>(null);
 const viewer = ref<Viewer | null>(null);
 
 const dropdownVisible = ref(false); // 控制下拉菜单的显示状态
-const isMouseEnter = ref(true);
 const isMouseLeaved = ref(true); // 控制 handleMouseLeave 是否生效
-const istoggleDropdown = ref(true);
+const istoggleDropdown = ref(true);//控制toggleDropdown函数是否生效
 // 鼠标移入时显示下拉菜单
 const handleMouseEnter = () => {
   if (!dropdownVisible.value) {
     dropdownVisible.value = true;
-    isMouseEnter.value = false; // toggleDropdown语句切换
   }
 };
 // 鼠标移出时隐藏下拉菜单（如果未点击按钮）
 const handleMouseLeave = () => {
   if (dropdownVisible.value && isMouseLeaved.value) {
     dropdownVisible.value = false;
-    isMouseEnter.value = true;
   }
 };
 // 点击按钮切换下拉菜单显示状态
 const toggleDropdown = () => {
-  if(!isMouseEnter.value && istoggleDropdown.value){
+  if(istoggleDropdown.value){
     isMouseLeaved.value = !isMouseLeaved.value; // 禁用 handleMouseEnter
     dropdownVisible.value = true;
     istoggleDropdown.value = false;
