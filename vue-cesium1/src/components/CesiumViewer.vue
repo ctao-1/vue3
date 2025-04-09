@@ -9,7 +9,7 @@
         <option type="checkbox" value="changzheng2">红二方面军长征路线</option>
       </select>
       <button @click="loadRoutes">加载</button>
-      <button>动画</button>
+      <button @click="startAnimation">动画</button>
     </div>
     <div id="layerDropdown" @mouseleave="handleMouseLeave">
       <!-- 圆形按钮 -->
@@ -37,7 +37,7 @@
 
 <script lang="ts" setup>
 import {Viewer} from 'cesium';
-import { Entity, PolylineGraphics, Cartesian3, Color, PointGraphics, UrlTemplateImageryProvider, WebMercatorTilingScheme } from 'cesium';
+import { Entity, PolylineGraphics, Cartesian3, Color, PointGraphics, UrlTemplateImageryProvider, WebMercatorTilingScheme, SampledPositionProperty, JulianDate } from 'cesium';
 import { onMounted, ref } from 'vue'
 import { ImageryLayer } from 'cesium';
  
@@ -97,6 +97,42 @@ const loadRoutes = () => {
     changzhengEntities.value[1].show = true; // 显示红二方面军长征路线
   }
 };
+
+// 创建红军战士小人图标实体
+const soldierEntity = new Entity({
+  position: new SampledPositionProperty(),
+  billboard: {
+    image: 'https://cdn-icons-png.flaticon.com/512/854/854878.png', // 替换为红军战士小人图标的 URL
+    width: 32,
+    height: 32,
+  },
+});
+// 动画按钮点击事件
+const startAnimation = () => {
+  if (!viewer.value) return;
+
+  const startTime = JulianDate.now();
+  const stopTime = JulianDate.addSeconds(startTime, 120, new JulianDate()); // 动画持续 60 秒
+
+  // 设置时间范围
+  viewer.value.clock.startTime = startTime.clone();
+  viewer.value.clock.stopTime = stopTime.clone();
+  viewer.value.clock.currentTime = startTime.clone();
+  viewer.value.clock.clockRange = Cesium.ClockRange.CLAMPED; // 限制时间范围
+  viewer.value.clock.multiplier = 1; // 时间流速
+
+  // 创建 SampledPositionProperty 并添加位置
+  const positionProperty = soldierEntity.position as SampledPositionProperty;
+  const totalPoints = cartesian3Positions1.length;
+  cartesian3Positions1.forEach((position, index) => {
+    const time = JulianDate.addSeconds(startTime, (index / totalPoints) * 120, new JulianDate());
+    positionProperty.addSample(time, position);
+  });
+
+  // 将小人实体设置为跟踪目标
+  viewer.value.trackedEntity = soldierEntity;
+};
+
 // 江西瑞金的经纬度
 const ruijinCoord = [116.026667, 25.885556];
 // 陕西吴起镇的经纬度
@@ -238,7 +274,7 @@ onMounted(() => {
       sceneModePicker: false,
       navigationInstructionsInitiallyVisible: false,
       navigationHelpButton: false,
-      animation: false,
+      animation: true,
       shouldAnimate: true
     });
 
@@ -246,6 +282,11 @@ onMounted(() => {
   changzhengEntities.value.forEach(entity => {
     (viewer.value as Viewer).entities.add(entity);
   });
+
+  // 添加红军战士小人图标实体
+  viewer.value.entities.add(soldierEntity);
+  viewer.value.clock.shouldAnimate = false; // 暂停动画
+  viewer.value.clock.shouldAnimate = true;  // 恢复动画
 
   // Add point markers to the Viewer
   (viewer.value as Viewer).entities.add(ruijinPoint);
