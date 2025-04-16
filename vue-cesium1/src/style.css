@@ -34,9 +34,9 @@ html, body {
 }
 #cesiumContainer .cesium-viewer-timeline {
   display: none; /* 隐藏 Cesium 默认时间轴 */
-}
+}true
 #cesiumContainer .cesium-viewer-animation {
-  display: none; /* 隐藏 Cesium 默认动画控制器 */
+  display: true; /* 隐藏 Cesium 默认动画控制器 */
 }
 #cesiumContainer .cesium-viewer-fullscreen {
   display: none; /* 隐藏 Cesium 默认全屏按钮 */
