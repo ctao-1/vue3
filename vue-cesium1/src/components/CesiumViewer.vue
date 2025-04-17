@@ -261,7 +261,7 @@ const performSearch = () => {
 //vue生命周期钩子函数
 onMounted(() => {
   Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI1MThkNmVjMi1kZjU3LTRiYjUtOGM2ZC0wYjk2YzFlNTE5YzUiLCJpZCI6MjcwODk5LCJpYXQiOjE3Mzc2MDc1NDh9.Wpl35AaD3rKSqskH_gRtGNnAYDnaAy9C3vZsU8jkTHw';
-  (window as any).CESIUM_BASE_URL = 'static/cesiumAssets'//设置cesium的静态资源地址
+  (window as any).CESIUM_BASE_URL = '/public/static/cesiumAssets'//设置cesium的静态资源地址
  
   //创建cesium的viewer对象
   viewer.value = new Viewer('cesiumContainer',{
