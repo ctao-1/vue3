@@ -1,8 +1,21 @@
 {
+//  "compilerOptions": {
+//    "forceConsistentCasingInFileNames": true,
+//    "strict": true
+//  },
   "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true
+    "types": ["vite/client"], // Add this if using Vite
+    "typeRoots": ["./node_modules/@types"] // Ensure this is included
   },
+  "include": ["src", "node_modules/@types"], // Include your source files and type declarations
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },

@@ -1,9 +1,12 @@
 <script lang="ts" setup>
-import CesiumViewer from './components/CesiumViewer.vue'
+// import CesiumViewer from './components/CesiumViewer.vue'
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <CesiumViewer></CesiumViewer>
+  <div class="app">
+    <RouterView></RouterView>
+  </div>
 </template>
 
 <style scoped>
