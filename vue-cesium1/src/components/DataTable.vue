@@ -1,72 +1,37 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
-<div>
   <table class="container">
-    <thead class="bg-gray-50">
-    <tr>
-      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-        点名
-      </th>
-      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-        坐标
-      </th>
-      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-        时间
-      </th>
-      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-        信息
-      </th>
-    </tr>
+    <thead>
+      <tr>
+        <th>地点</th>
+        <th>坐标</th>
+        <th>事件</th>
+        <th>日期</th>
+        <th>描述</th>
+      </tr>
     </thead>
-    <tbody class="bg-white divide-y divide-gray-200">
-    <tr>
-      <td class="px-6 py-4 whitespace-nowrap">
-遵义
-      </td>
-      <td class="px-6 py-4 whitespace-nowrap">
-（0,0）
-      </td>
-      <td class="px-6 py-4 whitespace-nowrap">
-1934
-      </td>
-      <td class="px-6 py-4 whitespace-nowrap">
-江西
-      </td>
-    </tr>
-    <tr>
-      <td class="px-6 py-4 whitespace-nowrap">
-
-      </td>
-      <td class="px-6 py-4 whitespace-nowrap">
-
-      </td>
-      <td class="px-6 py-4 whitespace-nowrap">
-
-      </td>
-      <td class="px-6 py-4 whitespace-nowrap">
-
-      </td>
-    </tr>
-    <tr>
-      <td class="px-6 py-4 whitespace-nowrap">
-
-      </td>
-      <td class="px-6 py-4 whitespace-nowrap">
-
-      </td>
-      <td class="px-6 py-4 whitespace-nowrap">
-
-      </td>
-      <td class="px-6 py-4 whitespace-nowrap">
-      </td>
-    </tr>
+    <tbody>
+      <tr v-for="item in tableData" :key="item.place_name">
+        <td>{{ item.place_name }}</td>
+        <td>{{ item.longitude }}, {{ item.latitude }}</td>
+        <td>{{ item.incident }}</td>
+        <td>{{ item.incident_data }}</td>
+        <td>{{ item.description }}</td>
+      </tr>
     </tbody>
   </table>
-</div>
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+
+const tableData = ref([])
+
+onMounted(async () => {
+  const res = await axios.get('http://localhost:5000/api/places')
+  tableData.value = res.data
+})
+</script>
 
 <style scoped>
 .container{

@@ -1,4 +1,6 @@
 <template>
+  <div>
+  <MapSearchBar />
   <div id="cesiumContainer">
     <!-- <button id="toggleRouteButton" @click="toggleRouteVisibility">{{ routeVisible ? '关闭路线' : '显示路线' }}</button> -->
     <!-- 复选框  -->
@@ -23,12 +25,8 @@
         </option>
       </select>
     </div>
-    <div id="searchBar">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="searchInput" v-model="searchQuery" placeholder="请输入搜索内容" />
-      <button @click="performSearch">搜索</button>
-    </div>
-  </div>  
+  </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -38,16 +36,22 @@
 <script lang="ts" setup>
 import {Viewer} from 'cesium';
 import { Entity, PolylineGraphics, Cartesian3, Color, PointGraphics, UrlTemplateImageryProvider, WebMercatorTilingScheme, SampledPositionProperty, JulianDate } from 'cesium';
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, provide } from 'vue'
 import { ImageryLayer } from 'cesium';
- 
+
 //引入cesium的css文件
 import '/public/static/CesiumAssets/Widgets/widgets.css'
 import * as Cesium from "cesium";
 import '../style.css'
+import MapSearchBar from './MapSearchBar.vue'
 
 import { changzheng1Coordinates, changzheng2Coordinates }  from '../coordinates/changzhengGroute';
 import { tiandituEffect } from '../tianditu/tiandituEffect';
+
+//the actual Viewer instance is stored in viewer.value
+const viewer = ref<Viewer | null>(null);
+provide('viewer', viewer)          // ⬅️ 提前注入这个 ref（响应式）
+
 // 用于跟踪路线的显示状态
 const routeVisible = ref(true);
 // const layerVisible = ref(true);
@@ -167,39 +171,37 @@ const zunyiPoint = new Entity({
 });
 
 const selectLayers = ref<string[]>([]);
+const tk = 'aff67efbdd6b0daba90549b44b0d1c4d'
 // 天地图图层配置
 const tdtLayers = [
   {
-    url: 'http://t{s}.tianditu.gov.cn/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=aff67efbdd6b0daba90549b44b0d1c4d',
+    url: `http://t{s}.tianditu.gov.cn/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=${tk}`,
     name: '天地图矢量地图'
   },
   {
-    url: 'http://t{s}.tianditu.gov.cn/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=aff67efbdd6b0daba90549b44b0d1c4d',
+    url: `http://t{s}.tianditu.gov.cn/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=${tk}`,
     name: '天地图矢量注记'
   },
   {
-    url: 'http://t{s}.tianditu.gov.cn/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=aff67efbdd6b0daba90549b44b0d1c4d',
+    url: `http://t{s}.tianditu.gov.cn/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=${tk}`,
     name: '天地图影像底图'
   },
   {
-    url: 'http://t{s}.tianditu.gov.cn/DataServer?T=cia_w&x={x}&y={y}&l={z}&tk=aff67efbdd6b0daba90549b44b0d1c4d',
+    url: `http://t{s}.tianditu.gov.cn/DataServer?T=cia_w&x={x}&y={y}&l={z}&tk=${tk}`,
     name: '天地图影像注记'
   },
   {
-    url: 'http://t{s}.tianditu.gov.cn/DataServer?T=ter_w&x={x}&y={y}&l={z}&tk=aff67efbdd6b0daba90549b44b0d1c4d',
+    url: `http://t{s}.tianditu.gov.cn/DataServer?T=ter_w&x={x}&y={y}&l={z}&tk=${tk}`,
     name: '天地图地形晕渲'
   },
   {
-    url: 'http://t{s}.tianditu.gov.cn/DataServer?T=cta_w&x={x}&y={y}&l={z}&tk=aff67efbdd6b0daba90549b44b0d1c4d',
+    url: `http://t{s}.tianditu.gov.cn/DataServer?T=cta_w&x={x}&y={y}&l={z}&tk=${tk}`,
     name: '天地图地形注记'
   }
 ];
 
 const currentLayerIndex = ref(-1);
 const currentLayer = ref<ImageryLayer | null>(null);
-
-//the actual Viewer instance is stored in viewer.value
-const viewer = ref<Viewer | null>(null);
 
 const dropdownVisible = ref(false); // 控制下拉菜单的显示状态
 const isMouseLeaved = ref(true); // 控制 handleMouseLeave 是否生效
@@ -251,18 +253,17 @@ const changeLayer = (event: Event) => {
   currentLayerIndex.value = selectedIndex;
 };
 
-const searchQuery = ref('');// 搜索框绑定的输入内容
-// 搜索按钮点击事件
-const performSearch = () => {
-  console.log('搜索内容:', searchQuery.value);
-  // 在这里实现搜索逻辑，例如定位到某个地点
-};
+// const searchQuery = ref('');// 搜索框绑定的输入内容
+// // 搜索按钮点击事件
+// const performSearch = () => {
+//   // 在这里实现搜索某个地点，利用相似搜索原理，在数据库中查询place_name字段获取该地点，将查询到的结果加载到搜索框下方，点击其中一个查询结果，定位到该地点
+// };
 
 //vue生命周期钩子函数
 onMounted(() => {
   Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI1MThkNmVjMi1kZjU3LTRiYjUtOGM2ZC0wYjk2YzFlNTE5YzUiLCJpZCI6MjcwODk5LCJpYXQiOjE3Mzc2MDc1NDh9.Wpl35AaD3rKSqskH_gRtGNnAYDnaAy9C3vZsU8jkTHw';
   (window as any).CESIUM_BASE_URL = '/public/static/cesiumAssets'//设置cesium的静态资源地址
- 
+
   //创建cesium的viewer对象
   viewer.value = new Viewer('cesiumContainer',{
       terrain: Cesium.Terrain.fromWorldTerrain(),
