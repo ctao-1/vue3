@@ -54,6 +54,7 @@ const login = () => {
   background-size: cover; /* 背景图覆盖整个容器 */
   background-position: center; /* 背景图居中显示 */
   background-repeat: no-repeat; /* 防止背景图重复 */
+}
 
   .login-header{
     text-align: center;
@@ -163,5 +164,4 @@ const login = () => {
   .register-link a:hover {
     text-decoration: underline;
   }
-}
 </style>

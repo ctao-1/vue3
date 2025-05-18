@@ -44,31 +44,41 @@ const navItems = ref([
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  background-color: rgb(31, 80, 241);
-  color: white;
-  padding: 20px;
-  width: 150px; /* 固定宽度 */
+  background-color: rgba(84, 172, 216, 0.721);
+  /* background-image: url('/static/images/background.png'); */
+  background-image: url('/static/images/red.jpg');
+  /* color: white; */
+  padding: 10px;
+  width: 170px; /* 固定宽度 */
   height: 100vh; /* 占满屏幕高度 */
   position: fixed; /* 固定在左侧 */
   top: 0;
   left: 0;
 }
 .sidebar h1 {
-  font-size: 18px;
+  font-size: 30px;
+  margin-top: 30px;
   margin-bottom: 10px;
   color: #d71616;
   text-align: center;
 }
+
+.sidebar h1:hover {
+  filter: drop-shadow(0 0 2em rgb(8, 74, 105));
+}
+
 .nav-list {
   list-style: none;/* 去掉默认的列表样式 */
-  padding: 0;
-  margin: 0;
+  margin:30px 0 30px 0px;
   width: 100%; /* 占满导航栏宽度 */
   display: flex;
   flex-direction: column; /* 设置为列方向排列 */
-  gap: 10px; /* 每个导航项之间的间距 */
+  gap: 30px; /* 每个导航项之间的间距 */
+  text-align: center;
+  text-shadow: rgba(84, 172, 216, 0.721);
 }
 .nav-item {
+  font-size: 20px;
   color: rgb(10, 10, 10);
   cursor: pointer;
   padding: 10px 0;

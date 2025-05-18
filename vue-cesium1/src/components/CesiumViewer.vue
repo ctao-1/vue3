@@ -43,7 +43,7 @@ import { ImageryLayer } from 'cesium';
 import '/public/static/CesiumAssets/Widgets/widgets.css'
 import * as Cesium from "cesium";
 import '../style.css'
-import MapSearchBar from './MapSearchBar.vue'
+import MapSearchBar from './MapSearchBar.vue';
 
 import { changzheng1Coordinates, changzheng2Coordinates }  from '../coordinates/changzhengGroute';
 import { tiandituEffect } from '../tianditu/tiandituEffect';

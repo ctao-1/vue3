@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
       ST_Y(coordinate::geometry) AS latitude,
       elevation,
       incident,
-      incident_data,
+      TO_CHAR(incident_data, 'YYYY-MM-DD') AS incident_data,
       description
       FROM changzhenluarmy1
     `);
