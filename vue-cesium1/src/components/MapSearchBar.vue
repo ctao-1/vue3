@@ -34,7 +34,7 @@
       <p><strong>事件：</strong>{{ selectedPlace.incident }}</p>
       <p><strong>时间：</strong>{{ selectedPlace.incident_data }}</p>
       <p><strong>坐标：</strong>{{ selectedPlace.longitude.toFixed(4) }}, {{ selectedPlace.latitude.toFixed(4) }}</p>
-      <p><strong>海报：</strong>{{ selectedPlace.elevation }} 米</p>
+      <p><strong>海拔：</strong>{{ selectedPlace.elevation }} 米</p>
       <p><strong>描述：</strong>{{ selectedPlace.description }}</p>
       <div v-if="image">
         <img
@@ -169,7 +169,7 @@ const locateOnMap = async (place) => {
 .info-panel {
   position: absolute;
   right: -570px;
-  top: 100px;
+  top: 120px;
   width: 260px;
   background-color: rgba(255, 255, 255, 0.6);
   border-left: 2px solid #ccc;

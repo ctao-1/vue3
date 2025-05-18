@@ -1,6 +1,6 @@
 <template>
   <div>
-  <MapSearchBar />
+  <MapSearchBar /><CesiumPointLoader />
   <div id="cesiumContainer">
     <!-- <button id="toggleRouteButton" @click="toggleRouteVisibility">{{ routeVisible ? '关闭路线' : '显示路线' }}</button> -->
     <!-- 复选框  -->
@@ -35,7 +35,7 @@
 
 <script lang="ts" setup>
 import {Viewer} from 'cesium';
-import { Entity, PolylineGraphics, Cartesian3, Color, PointGraphics, UrlTemplateImageryProvider, WebMercatorTilingScheme, SampledPositionProperty, JulianDate } from 'cesium';
+import { Entity, PolylineGraphics, Cartesian3, Color, UrlTemplateImageryProvider, WebMercatorTilingScheme, SampledPositionProperty, JulianDate } from 'cesium';
 import { onMounted, ref, provide } from 'vue'
 import { ImageryLayer } from 'cesium';
 
@@ -44,13 +44,14 @@ import '/public/static/CesiumAssets/Widgets/widgets.css'
 import * as Cesium from "cesium";
 import '../style.css'
 import MapSearchBar from './MapSearchBar.vue';
+import CesiumPointLoader from './CesiumPointLoader.vue'
 
 import { changzheng1Coordinates, changzheng2Coordinates }  from '../coordinates/changzhengGroute';
 import { tiandituEffect } from '../tianditu/tiandituEffect';
 
 //the actual Viewer instance is stored in viewer.value
 const viewer = ref<Viewer | null>(null);
-provide('viewer', viewer)          // ⬅️ 提前注入这个 ref（响应式）
+provide('viewer', viewer)          // ⬅️ 提前注入这个 ref（响应式），提供对象给子组件
 
 // 用于跟踪路线的显示状态
 const routeVisible = ref(true);
@@ -137,38 +138,38 @@ const startAnimation = () => {
   viewer.value.trackedEntity = soldierEntity;
 };
 
-// 江西瑞金的经纬度
-const ruijinCoord = [116.026667, 25.885556];
-// 陕西吴起镇的经纬度
-const wuqizhenCoord = [108.175000, 36.927500];
-const zunyiCoord = [106.918056, 27.698611];
-
-// 创建江西瑞金的点标记
-const ruijinPoint = new Entity({
-  position: Cartesian3.fromDegrees(ruijinCoord[0], ruijinCoord[1]),
-  point: new PointGraphics({
-    color: Color.YELLOW,
-    pixelSize: 10
-  })
-});
-
-// 创建陕西吴起镇的点标记
-const wuqizhenPoint = new Entity({
-  position: Cartesian3.fromDegrees(wuqizhenCoord[0], wuqizhenCoord[1]),
-  point: new PointGraphics({
-    color: Color.YELLOW,
-    pixelSize: 10
-  })
-});
-
-// 创建遵义的点标记
-const zunyiPoint = new Entity({
-  position: Cartesian3.fromDegrees(zunyiCoord[0], zunyiCoord[1]),
-  point: new PointGraphics({
-    color: Color.YELLOW,
-    pixelSize: 10
-  })
-});
+// // 江西瑞金的经纬度
+// const ruijinCoord = [116.026667, 25.885556];
+// // 陕西吴起镇的经纬度
+// const wuqizhenCoord = [108.175000, 36.927500];
+// const zunyiCoord = [106.918056, 27.698611];
+//
+// // 创建江西瑞金的点标记
+// const ruijinPoint = new Entity({
+//   position: Cartesian3.fromDegrees(ruijinCoord[0], ruijinCoord[1]),
+//   point: new PointGraphics({
+//     color: Color.YELLOW,
+//     pixelSize: 10
+//   })
+// });
+//
+// // 创建陕西吴起镇的点标记
+// const wuqizhenPoint = new Entity({
+//   position: Cartesian3.fromDegrees(wuqizhenCoord[0], wuqizhenCoord[1]),
+//   point: new PointGraphics({
+//     color: Color.YELLOW,
+//     pixelSize: 10
+//   })
+// });
+//
+// // 创建遵义的点标记
+// const zunyiPoint = new Entity({
+//   position: Cartesian3.fromDegrees(zunyiCoord[0], zunyiCoord[1]),
+//   point: new PointGraphics({
+//     color: Color.YELLOW,
+//     pixelSize: 10
+//   })
+// });
 
 const selectLayers = ref<string[]>([]);
 const tk = 'aff67efbdd6b0daba90549b44b0d1c4d'
@@ -284,9 +285,9 @@ onMounted(() => {
   viewer.value.clock.shouldAnimate = true;  // 恢复动画
 
   // Add point markers to the Viewer
-  (viewer.value as Viewer).entities.add(ruijinPoint);
-  (viewer.value as Viewer).entities.add(wuqizhenPoint);
-  (viewer.value as Viewer).entities.add(zunyiPoint);
+  // (viewer.value as Viewer).entities.add(ruijinPoint);
+  // (viewer.value as Viewer).entities.add(wuqizhenPoint);
+  // (viewer.value as Viewer).entities.add(zunyiPoint);
 
   // 调用封装的函数
   if (viewer.value) {
