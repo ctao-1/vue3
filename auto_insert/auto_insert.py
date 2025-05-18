@@ -8,24 +8,29 @@ conn = psycopg2.connect(dbname="postgres",user="postgres",password="123456",host
 cur = conn.cursor()
 
 # 读取图片文件为二进制
-with open('zunyihuiyidizhi.jpg', 'rb') as f:
+with open('二郎滩.jpg', 'rb') as f:
     binary_data = f.read()
 
 # 插入数据
 sql = """
-INSERT INTO changzhenluarmy1 (place_name, coordinate, incident, incident_data, description, image)
-VALUES (%s, ST_GeogFromText('SRID=4326;POINT(%s %s)'), %s, %s, %s, %s)
+INSERT INTO changzhenluarmy1 (place_name, coordinate,elevation, incident, incident_data, description, image)
+VALUES (%s, ST_GeogFromText('SRID=4326;POINT(%s %s)'),%s, %s, %s, %s, %s)
 """
+# sql = """
+# update changzhenluarmy1 set image = (%s) where place_name = '习水县土城镇'
+# """
 
 cur.execute(sql, (
-    '遵义', 
-    106.918056,27.698611,  # 经纬度
-    '遵义会议', 
-    '1935-01-15',
-    '遵义会议是中国共产党历史上一个重要的会议，标志着中国共产党开始独立自主地进行军事斗争和政治斗争。', 
+    '二郎镇二郎滩', #地名
+    106.1500,28.1667,  # 经纬度
+    355,  # 海拔
+    '四渡赤水', # 事件
+    '1935-03-10',# 事件时间
+    '红军在此进行第四次渡赤水行动，成功摆脱敌军追击。', # 事件描述
+    # None,
     psycopg2.Binary(binary_data)
 ))
-
+    
 conn.commit()
 cur.close()
 conn.close()

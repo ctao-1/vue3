@@ -4,6 +4,7 @@
       <tr>
         <th>地点</th>
         <th>坐标</th>
+        <th>高程</th>
         <th>事件</th>
         <th>日期</th>
         <th>描述</th>
@@ -13,6 +14,7 @@
       <tr v-for="item in tableData" :key="item.place_name">
         <td>{{ item.place_name }}</td>
         <td>{{ item.longitude }}, {{ item.latitude }}</td>
+        <td>{{ item.elevation }}</td>
         <td>{{ item.incident }}</td>
         <td>{{ item.incident_data }}</td>
         <td>{{ item.description }}</td>

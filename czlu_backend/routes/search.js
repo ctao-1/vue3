@@ -7,14 +7,18 @@ router.get('/', async (req, res) => {
     const keyword = req.query.q
     try {
         const result = await pool.query(`
-      SELECT 
-        place_name, 
-        ST_X(coordinate::geometry) AS longitude, 
-        ST_Y(coordinate::geometry) AS latitude 
-      FROM changzhenluarmy1
-      WHERE place_name ILIKE $1
-      LIMIT 10
-    `, [`%${keyword}%`])
+          SELECT 
+            place_name, 
+            ST_X(coordinate::geometry) AS longitude, 
+            ST_Y(coordinate::geometry) AS latitude ,
+            elevation,
+            incident,
+            TO_CHAR(incident_data, 'YYYY-MM-DD') AS incident_data,
+            description           
+          FROM changzhenluarmy1
+          WHERE place_name ILIKE $1 OR incident ILIKE $1
+          LIMIT 10
+        `, [`%${keyword}%`])
 
         res.json(result.rows)
     } catch (err) {

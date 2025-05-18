@@ -10,6 +10,7 @@ router.get('/', async (req, res) => {
       place_name,
       ST_X(coordinate::geometry) AS longitude,
       ST_Y(coordinate::geometry) AS latitude,
+      elevation,
       incident,
       incident_data,
       description

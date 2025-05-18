@@ -44,8 +44,8 @@
 }
 #toggleRouteButton {
   position: absolute;
-  bottom: 10px; /* 距离容器顶部 10px */
-  right: 10px; /* 距离容器左侧 10px */
+  bottom: 10px; /* 距离容器底部 10px */
+  right: 10px; /* 距离容器右侧 10px */
   z-index: 10; /* 确保按钮位于 Cesium 容器之上 */
   padding: 5px 10px;
   background-color: rgba(0, 0, 0, 0.6); /* 半透明背景 */
@@ -105,7 +105,7 @@
   position: absolute;
   top: 10px; /* 调整位置 */
   right: 10px;
-  z-index: 10;
+  z-index: 10;/* 确保下拉框位于 Cesium 容器之上 */
   background-color: rgba(255, 255, 255, 0.8);
   padding: 5px;
   border-radius: 4px;

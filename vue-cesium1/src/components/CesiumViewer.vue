@@ -7,7 +7,7 @@
     <div id="routeDropdown">
       <label for="routeSelect">选择路线：</label>
       <select id="routeSelect" v-model="selectedRoutes">
-        <option type="checkbox" value="changzheng1">中央红军（红一方面军）长征路线</option>
+        <option type="checkbox" value="changzheng1">中央红军（红一方面军）</option>
         <option type="checkbox" value="changzheng2">红二方面军长征路线</option>
       </select>
       <button @click="loadRoutes">加载</button>
@@ -57,7 +57,7 @@ const routeVisible = ref(true);
 // const layerVisible = ref(true);
 // 将经纬度数组转换为Cartesian3数组
 const cartesian3Positions1 = changzheng1Coordinates.map((coord) => {
-  return Cartesian3.fromDegrees(coord[0], coord[1]);
+  return Cartesian3.fromDegrees(coord[0], coord[1], coord[2]);
 });
 const cartesian3Positions2 = changzheng2Coordinates.map((coord) => {
   return Cartesian3.fromDegrees(coord[0], coord[1]);
@@ -252,12 +252,6 @@ const changeLayer = (event: Event) => {
 
   currentLayerIndex.value = selectedIndex;
 };
-
-// const searchQuery = ref('');// 搜索框绑定的输入内容
-// // 搜索按钮点击事件
-// const performSearch = () => {
-//   // 在这里实现搜索某个地点，利用相似搜索原理，在数据库中查询place_name字段获取该地点，将查询到的结果加载到搜索框下方，点击其中一个查询结果，定位到该地点
-// };
 
 //vue生命周期钩子函数
 onMounted(() => {
