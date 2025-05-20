@@ -138,39 +138,6 @@ const startAnimation = () => {
   viewer.value.trackedEntity = soldierEntity;
 };
 
-// // 江西瑞金的经纬度
-// const ruijinCoord = [116.026667, 25.885556];
-// // 陕西吴起镇的经纬度
-// const wuqizhenCoord = [108.175000, 36.927500];
-// const zunyiCoord = [106.918056, 27.698611];
-//
-// // 创建江西瑞金的点标记
-// const ruijinPoint = new Entity({
-//   position: Cartesian3.fromDegrees(ruijinCoord[0], ruijinCoord[1]),
-//   point: new PointGraphics({
-//     color: Color.YELLOW,
-//     pixelSize: 10
-//   })
-// });
-//
-// // 创建陕西吴起镇的点标记
-// const wuqizhenPoint = new Entity({
-//   position: Cartesian3.fromDegrees(wuqizhenCoord[0], wuqizhenCoord[1]),
-//   point: new PointGraphics({
-//     color: Color.YELLOW,
-//     pixelSize: 10
-//   })
-// });
-//
-// // 创建遵义的点标记
-// const zunyiPoint = new Entity({
-//   position: Cartesian3.fromDegrees(zunyiCoord[0], zunyiCoord[1]),
-//   point: new PointGraphics({
-//     color: Color.YELLOW,
-//     pixelSize: 10
-//   })
-// });
-
 const selectLayers = ref<string[]>([]);
 const tk = 'aff67efbdd6b0daba90549b44b0d1c4d'
 // 天地图图层配置
@@ -283,11 +250,6 @@ onMounted(() => {
   viewer.value.entities.add(soldierEntity);
   viewer.value.clock.shouldAnimate = false; // 暂停动画
   viewer.value.clock.shouldAnimate = true;  // 恢复动画
-
-  // Add point markers to the Viewer
-  // (viewer.value as Viewer).entities.add(ruijinPoint);
-  // (viewer.value as Viewer).entities.add(wuqizhenPoint);
-  // (viewer.value as Viewer).entities.add(zunyiPoint);
 
   // 调用封装的函数
   if (viewer.value) {
