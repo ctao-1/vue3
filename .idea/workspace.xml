@@ -6,10 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="38307619-7f50-4cc9-929a-5846de57c363" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_insert/auto_insert.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_insert/auto_insert.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/czlu_backend/routes/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/czlu_backend/routes/search.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-cesium1/src/components/DataTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/components/DataTable.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-cesium1/src/components/CesiumPointLoader.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/components/CesiumPointLoader.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-cesium1/src/components/CesiumViewer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/components/CesiumViewer.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-cesium1/src/coordinates/changzhengGroute.ts" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/coordinates/changzhengGroute.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-cesium1/src/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Vue Composition API Component" />
         <option value="JavaScript File" />
+        <option value="Vue Composition API Component" />
       </list>
     </option>
   </component>

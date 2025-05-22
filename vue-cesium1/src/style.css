@@ -177,3 +177,16 @@
 #searchBar button:hover {
   background-color: rgba(0, 0, 0, 0.8);
 }
+
+#mouse-info {
+  position: absolute;
+  right: 32px;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-family: monospace;
+  z-index: 1000;
+}

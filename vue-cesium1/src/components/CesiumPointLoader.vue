@@ -2,7 +2,6 @@
 import { onMounted, inject } from 'vue'
 import axios from 'axios'
 import * as Cesium from 'cesium'
-
 // 注入 viewer 对象
 const viewer = inject('viewer')
 
@@ -22,15 +21,15 @@ const loadPointEntities = async () => {
           outlineColor: Cesium.Color.BLACK,
           outlineWidth: 1
         }),
-        // label: new Cesium.LabelGraphics({
-        //   text: point.place_name,
-        //   font: '14px sans-serif',
-        //   fillColor: Cesium.Color.WHITE,
-        //   style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-        //   outlineWidth: 2,
-        //   verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-        //   pixelOffset: new Cesium.Cartesian2(0, -12)
-        // })
+        label: new Cesium.LabelGraphics({
+          text: point.place_name,
+          font: '14px sans-serif',
+          fillColor: Cesium.Color.WHITE,
+          style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+          outlineWidth: 2,
+          verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+          pixelOffset: new Cesium.Cartesian2(0, -12)
+        })
       })
       viewer.value.entities.add(entity)
     })
