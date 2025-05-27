@@ -45,17 +45,17 @@ export function tiandituEffect(viewer: Viewer) {
   // viewer.imageryLayers.addImageryProvider(imgMap);
 
   // 叠加国界服务
-  const iboMap = new UrlTemplateImageryProvider({
-    url: tdtUrl + 'DataServer?T=ibo_w&x={x}&y={y}&l={z}&tk=' + token,
-    subdomains: subdomains,
-    tilingScheme: new WebMercatorTilingScheme(),
-    maximumLevel: 10,
-  });
-  viewer.imageryLayers.addImageryProvider(iboMap);
+  // const iboMap = new UrlTemplateImageryProvider({
+  //   url: tdtUrl + 'DataServer?T=ibo_w&x={x}&y={y}&l={z}&tk=' + token,
+  //   subdomains: subdomains,
+  //   tilingScheme: new WebMercatorTilingScheme(),
+  //   maximumLevel: 10,
+  // });
+  // viewer.imageryLayers.addImageryProvider(iboMap);
 
   // 将三维球定位到中国altitude=17850000
   viewer.camera.flyTo({
-    destination: Cartesian3.fromDegrees(106.918056, 28.698611, 4000000),
+    destination: Cartesian3.fromDegrees(108.025067, 30.697815, 2500000),
     orientation: {
       heading: CesiumMath.toRadians(348.4202942851978),
       pitch: CesiumMath.toRadians(-89.74026687972041),

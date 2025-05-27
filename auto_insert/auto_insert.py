@@ -8,7 +8,7 @@ conn = psycopg2.connect(dbname="postgres",user="postgres",password="123456",host
 cur = conn.cursor()
 
 # 读取图片文件为二进制
-with open('二郎滩.jpg', 'rb') as f:
+with open('4渡.jpg', 'rb') as f:
     binary_data = f.read()
 
 # 插入数据
@@ -21,12 +21,12 @@ VALUES (%s, ST_GeogFromText('SRID=4326;POINT(%s %s)'),%s, %s, %s, %s, %s)
 # """
 
 cur.execute(sql, (
-    '二郎镇二郎滩', #地名
-    106.1500,28.1667,  # 经纬度
-    355,  # 海拔
+    '太平镇', #地名
+    106.060194, 28.145524,  # 经纬度
+    300,  # 海拔
     '四渡赤水', # 事件
-    '1935-03-10',# 事件时间
-    '红军在此进行第四次渡赤水行动，成功摆脱敌军追击。', # 事件描述
+    '1935-03-21',# 事件时间
+    '二郎滩、九溪口、太平渡渡口四渡赤水，向南集进。', # 事件描述
     # None,
     psycopg2.Binary(binary_data)
 ))

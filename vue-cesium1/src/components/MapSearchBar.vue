@@ -36,7 +36,7 @@
       <p><strong>坐标：</strong>{{ selectedPlace.longitude.toFixed(4) }}, {{ selectedPlace.latitude.toFixed(4) }}</p>
       <p><strong>海拔：</strong>{{ selectedPlace.elevation }} 米</p>
       <p><strong>描述：</strong>{{ selectedPlace.description }}</p>
-      <div v-if="image">
+      <div v-if="image" class = 'info-image'>
         <img
           :src="'data:image/jpeg;base64,' + image"
           alt="地点图片"
@@ -169,7 +169,7 @@ const locateOnMap = async (place) => {
 .info-panel {
   position: absolute;
   right: -570px;
-  top: 120px;
+  top: 100px;
   width: 260px;
   background-color: rgba(255, 255, 255, 0.6);
   border-left: 2px solid #ccc;
@@ -182,7 +182,7 @@ const locateOnMap = async (place) => {
 .info-image {
   max-width: 100%;
   border-radius: 4px;
-  margin-top: 8px;
+  max-height: 300px;      /* 设置最大高度 */
 }
 
 .close-info {

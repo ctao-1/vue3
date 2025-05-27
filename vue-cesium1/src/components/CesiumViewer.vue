@@ -102,46 +102,68 @@ const loadRoutes = () => {
 const soldierEntity = new Entity({
   position: new SampledPositionProperty(),
   billboard: {
-    image: 'https://cdn-icons-png.flaticon.com/512/854/854878.png', // 替换为红军战士小人图标的 URL
-    width: 32,
-    height: 32,
+    image: '/static/images/红军.png', // 替换为红军战士小人图标的 URL
+    width: 100,
+    height: 100,
   },
 });
+
+//匀速添加 Sample
+function addUniformSpeedSamples(positions: Cartesian3[], startTime: JulianDate, duration: number, positionProperty: Cesium.SampledPositionProperty) {
+  if (positions.length < 2) return
+
+  const distances: number[] = []
+  let totalDistance = 0
+
+  // 计算各段距离
+  for (let i = 1; i < positions.length; i++) {
+    const d = Cartesian3.distance(positions[i - 1], positions[i])
+    distances.push(d)
+    totalDistance += d
+  }
+
+  let elapsedTime = 0
+  positionProperty.addSample(startTime, positions[0]) // 起点样本
+
+  for (let i = 1; i < positions.length; i++) {
+    const segmentDuration = (distances[i - 1] / totalDistance) * duration
+    elapsedTime += segmentDuration
+    const time = JulianDate.addSeconds(startTime, elapsedTime, new JulianDate())
+    positionProperty.addSample(time, positions[i])
+  }
+}
+
 // 动画按钮点击事件
 const startAnimation = () => {
   if (!viewer.value) return;
-  if(selectedRoutes.value.length > 0) {
+  if (selectedRoutes.value.length > 0) {
     const startTime = JulianDate.now();
-    const stopTime = JulianDate.addSeconds(startTime, 1200, new JulianDate()); // 动画持续 300 秒
+    const totalDuration = 3200; // 总动画时间（秒）
+    const stopTime = JulianDate.addSeconds(startTime, totalDuration, new JulianDate());
 
-    // 设置时间范围
-    viewer.value.clock.startTime = startTime.clone();
-    viewer.value.clock.stopTime = stopTime.clone();
-    viewer.value.clock.currentTime = startTime.clone();
-    viewer.value.clock.clockRange = Cesium.ClockRange.CLAMPED; // 限制时间范围
-    viewer.value.clock.multiplier = 1; // 时间流速
+    const clock = viewer.value.clock
+    clock.startTime = startTime.clone();
+    clock.stopTime = stopTime.clone();
+    clock.currentTime = startTime.clone();
+    clock.clockRange = Cesium.ClockRange.CLAMPED;
+    clock.multiplier = 1; // 动画流速
+    clock.shouldAnimate = true;
 
-    // 创建 SampledPositionProperty 并添加位置
-    const positionProperty = soldierEntity.position as SampledPositionProperty;
+    // 重新生成空的 SampledPositionProperty
+    soldierEntity.position = new Cesium.SampledPositionProperty();
+    const positionProperty = soldierEntity.position;
+
     if (selectedRoutes.value.includes('changzheng1')) {
-      const totalPoints = cartesian3Positions1.length;
-      cartesian3Positions1.forEach((position, index) => {
-        const time = JulianDate.addSeconds(startTime, (index / totalPoints) * 120, new JulianDate());
-        positionProperty.addSample(time, position);
-      })
+      addUniformSpeedSamples(cartesian3Positions1, startTime, totalDuration, positionProperty);
     }
     if (selectedRoutes.value.includes('changzheng2')) {
-      const totalPoints = cartesian3Positions2.length;
-      cartesian3Positions2.forEach((position, index) => {
-        const time = JulianDate.addSeconds(startTime, (index / totalPoints) * 120, new JulianDate());
-        positionProperty.addSample(time, position);
-      })
+      addUniformSpeedSamples(cartesian3Positions2, startTime, totalDuration, positionProperty);
     }
-
     // 将小人实体设置为跟踪目标
     viewer.value.trackedEntity = soldierEntity;
   }
-};
+}
+
 
 //vue生命周期钩子函数
 onMounted(() => {
@@ -151,7 +173,8 @@ onMounted(() => {
   //创建cesium的viewer对象
   viewer.value = new Viewer('cesiumContainer',{
       terrain: Cesium.Terrain.fromWorldTerrain(),
-      baseLayerPicker: true,
+      baseLayerPicker: false,
+      geocoder: false, // 启用搜索框（默认true）
       timeline: false,// 必须为true显示时间线组件（如不想显示可以使用样式层叠表修改display：none） 否则viewer.timeline.zoomTo会报undefined错误
       homeButton: false,
       fullscreenButton: true,
