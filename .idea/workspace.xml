@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="38307619-7f50-4cc9-929a-5846de57c363" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_insert/auto_insert.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_insert/auto_insert.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-cesium1/src/components/CesiumViewer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/components/CesiumViewer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-cesium1/src/components/MapSearchBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/components/MapSearchBar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-cesium1/src/components/LayerDropdown.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/components/LayerDropdown.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-cesium1/src/coordinates/changzhengGroute.ts" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/coordinates/changzhengGroute.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-cesium1/src/coordinates/changzhengPointGraphics.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-cesium1/src/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-cesium1/src/tianditu/tiandituEffect.ts" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/tianditu/tiandituEffect.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

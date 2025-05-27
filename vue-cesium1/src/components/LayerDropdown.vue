@@ -67,12 +67,15 @@ const toggleDropdown = () => {
 
 // 切换图层函数
 const changeLayer = (event: Event) => {
+  // 获取用户选择的图层索引
   const selectedIndex = parseInt((event.target as HTMLSelectElement).value);
 
+  // 如果当前已加载图层，先移除它
   if (currentLayer.value && viewer && viewer.value) {
     viewer.value.imageryLayers.remove(currentLayer.value);
   }
 
+  // 根据选择的索引获取对应图层配置
   const layerConfig = tdtLayers[selectedIndex];
   const layer = new UrlTemplateImageryProvider({
     url: layerConfig.url,
@@ -80,10 +83,12 @@ const changeLayer = (event: Event) => {
     tilingScheme: new WebMercatorTilingScheme()
   });
 
+  // 将新图层添加到地图，并更新当前图层引用
   if (viewer && viewer.value) {
     currentLayer.value = viewer.value.imageryLayers.addImageryProvider(layer);
   }
 
+  // 更新当前图层索引
   currentLayerIndex.value = selectedIndex;
 };
 </script>
@@ -99,6 +104,7 @@ const changeLayer = (event: Event) => {
       <option v-for="(layer, index) in tdtLayers" :key="index" :value="index">
         {{ layer.name }}
       </option>
+      <option>Cesium三维地图</option>
     </select>
   </div>
 </template>

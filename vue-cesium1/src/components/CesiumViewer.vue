@@ -53,7 +53,7 @@ const routeVisible = ref(true);
 // const layerVisible = ref(true);
 // 将经纬度数组转换为Cartesian3数组
 const cartesian3Positions1 = changzheng1Coordinates.map((coord) => {
-  return Cartesian3.fromDegrees(coord[0], coord[1], coord[2]);
+  return Cartesian3.fromDegrees(coord[0], coord[1]);
 });
 const cartesian3Positions2 = changzheng2Coordinates.map((coord) => {
   return Cartesian3.fromDegrees(coord[0], coord[1]);
@@ -64,7 +64,8 @@ const changzhengEntity1 = new Entity({
   polyline: new PolylineGraphics({
     positions: cartesian3Positions1,
     width: 5,
-    material: Color.RED
+    material: Color.RED,
+    clampToGround: true
   }),
   show: routeVisible.value // 初始显示状态
 });
@@ -73,7 +74,8 @@ const changzhengEntity2 = new Entity({
   polyline: new PolylineGraphics({
     positions: cartesian3Positions2,
     width: 5,
-    material: Color.BLUE
+    material: Color.BLUE,
+    clampToGround: true //路线贴地
   }),
   show: routeVisible.value // 初始显示状态
 });
@@ -151,7 +153,7 @@ const startAnimation = () => {
 
     // 重新生成空的 SampledPositionProperty
     soldierEntity.position = new Cesium.SampledPositionProperty();
-    const positionProperty = soldierEntity.position;
+    const positionProperty = soldierEntity.position as Cesium.SampledPositionProperty;
 
     if (selectedRoutes.value.includes('changzheng1')) {
       addUniformSpeedSamples(cartesian3Positions1, startTime, totalDuration, positionProperty);
