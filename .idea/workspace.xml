@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="38307619-7f50-4cc9-929a-5846de57c363" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-cesium1/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-cesium1/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-cesium1/src/components/CesiumPointLoader.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/components/CesiumPointLoader.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-cesium1/src/components/CesiumViewer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/components/CesiumViewer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-cesium1/src/components/LayerDropdown.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/components/LayerDropdown.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-cesium1/src/coordinates/changzhengGroute.ts" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/coordinates/changzhengGroute.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-cesium1/src/components/MapSearchBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/components/MapSearchBar.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +95,7 @@
       <workItem from="1748007937394" duration="4960000" />
       <workItem from="1748218013208" duration="6341000" />
       <workItem from="1748317991000" duration="7871000" />
+      <workItem from="1748401983187" duration="9236000" />
     </task>
     <servers />
   </component>

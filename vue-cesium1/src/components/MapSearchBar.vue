@@ -52,6 +52,7 @@
 import { ref, inject } from 'vue'
 import axios from 'axios'
 import * as Cesium from 'cesium'
+import emitter from '../eventBus'
 
 const searchQuery = ref('')
 const searchResults = ref([])
@@ -87,6 +88,18 @@ const locateOnMap = async (place) => {
     image.value = res.data.image
     selectedPlace.value = place // 触发详情面板显示
     }
+    
+emitter.on('show-place-detail', async (place) => {
+  image.value = null
+  selectedPlace.value = place
+  // 可选：自动拉取图片
+  try {
+    const res = await axios.get(`http://localhost:5000/api/image/${place.place_name}`)
+    image.value = res.data.image
+  } catch (err) {
+    image.value = null
+  }
+})
 </script>
 
 <style scoped>

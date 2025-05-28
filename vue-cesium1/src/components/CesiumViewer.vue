@@ -28,7 +28,7 @@
 
 <script lang="ts" setup>
 import {Viewer} from 'cesium';
-import { Entity, PolylineGraphics, Cartesian3, Color,  SampledPositionProperty, JulianDate, ScreenSpaceEventHandler, ScreenSpaceEventType, Cartographic, Math as CesiumMath } from 'cesium';
+import { Entity, PolylineGraphics, Cartesian3, Color,  SampledPositionProperty, JulianDate, ScreenSpaceEventHandler, ScreenSpaceEventType, PolylineGlowMaterialProperty, Cartographic, Math as CesiumMath } from 'cesium';
 import { onMounted, ref, provide } from 'vue'
 
 //引入cesium的css文件
@@ -64,7 +64,12 @@ const changzhengEntity1 = new Entity({
   polyline: new PolylineGraphics({
     positions: cartesian3Positions1,
     width: 5,
-    material: Color.RED,
+    material: new PolylineGlowMaterialProperty({  // 发光效果
+      glowPower: 0.2,
+      color: Color.RED
+    }),
+    arcType: Cesium.ArcType.RHUMB,  // 恒向线（沿罗盘方向）
+    depthFailMaterial: Color.RED.withAlpha(0.5),  // 被遮挡时的半透明显示
     clampToGround: true
   }),
   show: routeVisible.value // 初始显示状态
@@ -74,7 +79,12 @@ const changzhengEntity2 = new Entity({
   polyline: new PolylineGraphics({
     positions: cartesian3Positions2,
     width: 5,
-    material: Color.BLUE,
+    material: new PolylineGlowMaterialProperty({  // 发光效果
+      glowPower: 0.2,
+      color: Color.BLUE
+    }),
+    arcType: Cesium.ArcType.RHUMB,  // 恒向线（沿罗盘方向）
+    depthFailMaterial: Color.BLUE.withAlpha(0.5),  // 被遮挡时的半透明显示
     clampToGround: true //路线贴地
   }),
   show: routeVisible.value // 初始显示状态
@@ -174,19 +184,20 @@ onMounted(() => {
 
   //创建cesium的viewer对象
   viewer.value = new Viewer('cesiumContainer',{
-      terrain: Cesium.Terrain.fromWorldTerrain(),
-      baseLayerPicker: false,
-      geocoder: false, // 启用搜索框（默认true）
-      timeline: false,// 必须为true显示时间线组件（如不想显示可以使用样式层叠表修改display：none） 否则viewer.timeline.zoomTo会报undefined错误
-      homeButton: false,
-      fullscreenButton: true,
-      infoBox: false,
-      sceneModePicker: false,
-      navigationInstructionsInitiallyVisible: false,
-      navigationHelpButton: false,
-      animation: true,
-      shouldAnimate: true
-    });
+    terrain: Cesium.Terrain.fromWorldTerrain(),//全球地形数据
+    //内置的 UI 控件
+    baseLayerPicker: false,
+    geocoder: false, // 启用搜索框（默认true）
+    timeline: false,// 必须为true显示时间线组件（如不想显示可以使用样式层叠表修改display：none） 否则viewer.timeline.zoomTo会报undefined错误
+    homeButton: false,
+    fullscreenButton: true,
+    infoBox: false,
+    sceneModePicker: false,
+    navigationInstructionsInitiallyVisible: false,
+    navigationHelpButton: false,
+    animation: true,
+    shouldAnimate: true
+  });
 
   // 将路线实体添加到Viewer中
   changzhengEntities.value.forEach(entity => {
