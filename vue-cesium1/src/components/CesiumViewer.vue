@@ -28,7 +28,7 @@
 
 <script lang="ts" setup>
 import {Viewer} from 'cesium';
-import { Entity, PolylineGraphics, Cartesian3, Color,  SampledPositionProperty, JulianDate, ScreenSpaceEventHandler, ScreenSpaceEventType, PolylineGlowMaterialProperty, Cartographic, Math as CesiumMath } from 'cesium';
+import { Entity, PolylineGraphics,  Cartesian3, Color,  SampledPositionProperty, JulianDate, ScreenSpaceEventHandler, ScreenSpaceEventType, PolylineGlowMaterialProperty, Cartographic, Math as CesiumMath } from 'cesium';
 import { onMounted, ref, provide } from 'vue'
 
 //引入cesium的css文件
@@ -110,16 +110,6 @@ const loadRoutes = () => {
   }
 };
 
-// 创建红军战士小人图标实体
-const soldierEntity = new Entity({
-  position: new SampledPositionProperty(),
-  billboard: {
-    image: '/static/images/红军.png', // 替换为红军战士小人图标的 URL
-    width: 100,
-    height: 100,
-  },
-});
-
 //匀速添加 Sample
 function addUniformSpeedSamples(positions: Cartesian3[], startTime: JulianDate, duration: number, positionProperty: Cesium.SampledPositionProperty) {
   if (positions.length < 2) return
@@ -146,11 +136,11 @@ function addUniformSpeedSamples(positions: Cartesian3[], startTime: JulianDate, 
 }
 
 // 动画按钮点击事件
-const startAnimation = () => {
+const startAnimation = async() => {
   if (!viewer.value) return;
   if (selectedRoutes.value.length > 0) {
     const startTime = JulianDate.now();
-    const totalDuration = 3200; // 总动画时间（秒）
+    const totalDuration = 6400; // 总动画时间（秒）
     const stopTime = JulianDate.addSeconds(startTime, totalDuration, new JulianDate());
 
     const clock = viewer.value.clock
@@ -166,25 +156,43 @@ const startAnimation = () => {
     const positionProperty = soldierEntity.position as Cesium.SampledPositionProperty;
 
     if (selectedRoutes.value.includes('changzheng1')) {
-      addUniformSpeedSamples(cartesian3Positions1, startTime, totalDuration, positionProperty);
+      const groundPositions = await getGroundPositions(changzheng1Coordinates);
+      addUniformSpeedSamples(groundPositions, startTime, totalDuration, positionProperty);
     }
     if (selectedRoutes.value.includes('changzheng2')) {
-      addUniformSpeedSamples(cartesian3Positions2, startTime, totalDuration, positionProperty);
+      const groundPositions = await getGroundPositions(changzheng2Coordinates);
+      addUniformSpeedSamples(groundPositions, startTime, totalDuration, positionProperty);
     }
     // 将小人实体设置为跟踪目标
     viewer.value.trackedEntity = soldierEntity;
   }
 }
 
+// 1. 全局 terrainProvider
+// let terrainProvider: Cesium.TerrainProvider | null = null;
+
+// 全局 soldierEntity 变量
+let soldierEntity: Entity;
+
+// 2. getGroundPositions 使用全局 terrainProvider
+async function getGroundPositions(coords: number[][]) {
+  const cartographics = coords.map(coord => Cartographic.fromDegrees(coord[0], coord[1]));
+  // if (!terrainProvider) return [];
+  const terrainProvider = await Cesium.createWorldTerrainAsync();
+  const sampled = await Cesium.sampleTerrainMostDetailed(terrainProvider, cartographics);
+  return sampled.map(cg => Cartesian3.fromRadians(cg.longitude, cg.latitude, cg.height));
+}
 
 //vue生命周期钩子函数
-onMounted(() => {
+onMounted(async () => {
   Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI1MThkNmVjMi1kZjU3LTRiYjUtOGM2ZC0wYjk2YzFlNTE5YzUiLCJpZCI6MjcwODk5LCJpYXQiOjE3Mzc2MDc1NDh9.Wpl35AaD3rKSqskH_gRtGNnAYDnaAy9C3vZsU8jkTHw';
   (window as any).CESIUM_BASE_URL = '/public/static/cesiumAssets'//设置cesium的静态资源地址
+  // terrainProvider = await Cesium.createWorldTerrainAsync();
 
   //创建cesium的viewer对象
   viewer.value = new Viewer('cesiumContainer',{
-    terrain: Cesium.Terrain.fromWorldTerrain(),//全球地形数据
+    // terrainProvider,
+    terrain: Cesium.Terrain.fromWorldTerrain(),//全球地形数据//全球地形数据
     //内置的 UI 控件
     baseLayerPicker: false,
     geocoder: false, // 启用搜索框（默认true）
@@ -202,6 +210,17 @@ onMounted(() => {
   // 将路线实体添加到Viewer中
   changzhengEntities.value.forEach(entity => {
     (viewer.value as Viewer).entities.add(entity);
+  });
+
+  // 3. soldierEntity billboard 增加 heightReference
+  soldierEntity = new Entity({
+    position: new SampledPositionProperty(),
+    billboard: {
+      image: '/static/images/红军.png',
+      width: 100,
+      height: 100,
+      heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
+    },
   });
 
   // 添加红军战士小人图标实体

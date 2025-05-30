@@ -181,13 +181,14 @@ emitter.on('show-place-detail', async (place) => {
 
 .info-panel {
   position: absolute;
-  right: -570px;
+  right: -500px;
   top: 100px;
-  width: 260px;
+  max-width: 250px;
+  max-height: 500px;
   background-color: rgba(255, 255, 255, 0.6);
   border-left: 2px solid #ccc;
   border-radius: 4px;
-  padding: 10px;
+  padding: 5px;
   color: #333;
   z-index: 1001;
 }
@@ -195,7 +196,7 @@ emitter.on('show-place-detail', async (place) => {
 .info-image {
   max-width: 100%;
   border-radius: 4px;
-  max-height: 300px;      /* 设置最大高度 */
+  max-height: 250px;      /* 设置最大高度 */
 }
 
 .close-info {
