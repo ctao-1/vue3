@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="38307619-7f50-4cc9-929a-5846de57c363" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/czlu_backend/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/czlu_backend/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-cesium1/src/components/CesiumViewer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/components/CesiumViewer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-cesium1/src/components/DataTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/components/DataTable.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-cesium1/src/components/MapSearchBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/components/MapSearchBar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-cesium1/src/components/Navigation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/components/Navigation.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-cesium1/src/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +99,9 @@
       <workItem from="1748401983187" duration="10431000" />
       <workItem from="1748477266645" duration="6615000" />
       <workItem from="1748570265741" duration="1650000" />
-      <workItem from="1748589506368" duration="1353000" />
+      <workItem from="1748589506368" duration="1966000" />
+      <workItem from="1748659651549" duration="4269000" />
+      <workItem from="1748741988282" duration="3091000" />
     </task>
     <servers />
   </component>

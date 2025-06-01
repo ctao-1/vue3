@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div id="searchBar">
     <!-- 搜索条 -->
     <div class="search-row">
@@ -26,7 +27,8 @@
             坐标：（{{ place.longitude.toFixed(4) }}, {{ place.latitude.toFixed(4) }}）
         </li>
         </ul>
-        <button v-if="searchResults.length > 0 && resultsta" @click="resultState" class="result-show"> 关闭结果 </button>
+        <button v-if="searchResults.length > 0 && resultsta" @click="resultState" class="result-show"> 关闭 </button>
+    </div>
     </div>
     <!-- 详情窗口 -->
     <div v-if="selectedPlace" class="info-panel">
@@ -104,23 +106,13 @@ emitter.on('show-place-detail', async (place) => {
 
 <style scoped>
 #searchBar {
-  position: absolute; /* 让子元素绝对定位基于此容器 */
-  z-index: 1000;
+  position: absolute; /* 让子元素绝对定位基于此容器*/
+  z-index: 1000; 
   background-color: rgba(0, 0, 0, 0.6);
   max-width: 260px;
   padding: 8px;
   border-radius: 6px;
   font-family: sans-serif;
-}
-
-.search-results {
-  position: absolute;
-  top: 48px; /* 根据输入框高度微调 */
-  left: 0;
-  width: 100%;
-  gap: 8px;
-  align-items: center;
-  z-index: 1001; /* 保证在输入框之上 */
 }
 
 .search-row {
@@ -135,7 +127,7 @@ emitter.on('show-place-detail', async (place) => {
 
 .search-input {
   width: 150px;
-  padding: 6px;
+  padding: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0);
@@ -149,6 +141,17 @@ emitter.on('show-place-detail', async (place) => {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.search-results {
+  position: fixed;
+  top: 48px; /* 根据输入框高度微调 */
+  left: 0;
+  width: 100%;
+  gap: 8px;
+  align-items: center;
+  z-index: 1001; /*保证在输入框之上*/
+  font-size:smaller;
 }
 
 .result-list {
@@ -172,25 +175,27 @@ emitter.on('show-place-detail', async (place) => {
 }
 
 .result-show {
-  position: absolute;
+  position: fixed;
   align-self: flex-end; /* 向右对齐 */
   right:0;
   bottom: -30px; /* 调整位置 */
-  color: rgb(60, 62, 155)
+  color: rgb(255, 255, 255);
 }
 
 .info-panel {
-  position: absolute;
-  right: -500px;
-  top: 100px;
+  position: fixed;      /* 固定在浏览器窗口 */
+  right: 0;             /* 紧贴右侧 */
+  top: 50%;/*页面右侧垂直居中*/
+  transform: translateY(-50%);
   max-width: 250px;
   max-height: 500px;
   background-color: rgba(255, 255, 255, 0.6);
   border-left: 2px solid #ccc;
-  border-radius: 4px;
+  border-radius: 4px 0 0 4px; /* 只左侧圆角 */
   padding: 5px;
   color: #333;
-  z-index: 1001;
+  font-size:smaller;
+  z-index: 1002;
 }
 
 .info-image {
@@ -200,14 +205,16 @@ emitter.on('show-place-detail', async (place) => {
 }
 
 .close-info {
-  position: relative;
-  margin-top: 4px;
-  /*//padding: 3px 5px;*/
+  position: absolute;
+  top:0;
+  margin: 4px;
+  padding: 3px 5px 3px 5px;
   right:0;
-  background-color: rgb(255, 255, 255, 0.6);
-  color: #fff;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: rgb(255, 255, 255);
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-family: sans-serif;
 }
 </style>

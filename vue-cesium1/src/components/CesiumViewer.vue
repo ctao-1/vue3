@@ -1,13 +1,13 @@
 <template>
   <div>
-  <MapSearchBar /><CesiumPointLoader />
-  <div id="cesiumContainer">
+  <div id="cesiumContainer" ref="cesiumContainerRef">
+    <MapSearchBar /><CesiumPointLoader />
     <LayerDropdown />
     <!-- <button id="toggleRouteButton" @click="toggleRouteVisibility">{{ routeVisible ? '关闭路线' : '显示路线' }}</button> -->
     <!-- 复选框  -->
     <div id="routeDropdown">
-      <label for="routeSelect">选择路线：</label>
       <select id="routeSelect" v-model="selectedRoutes">
+        <option disabled value="">请选择路线</option>
         <option type="checkbox" value="changzheng1">中央红军（红一方面军）</option>
         <option type="checkbox" value="changzheng2">红二方面军长征路线</option>
       </select>
@@ -45,7 +45,8 @@ import { tiandituEffect } from '../tianditu/tiandituEffect';
 //the actual Viewer instance is stored in viewer.value
 const viewer = ref<Viewer | null>(null);
 provide('viewer', viewer)          // ⬅️ 提前注入这个 ref（响应式），提供对象给子组件
-
+const cesiumContainerRef = ref<HTMLDivElement | null>(null);
+// 用于显示鼠标位置的经纬度和高程
 const cartesianStr = ref('无')
 const elevationStr = ref('无')
 // 用于跟踪路线的显示状态
@@ -94,7 +95,7 @@ const changzhengEntities = ref<Entity[]>([])
 // 将路线实体添加到数组中
 changzhengEntities.value = [changzhengEntity1, changzhengEntity2];
 
-const selectedRoutes = ref<string[]>([]); // 用于存储选中的复选框值
+const selectedRoutes = ref(''); // 用于存储选中的单选框值 复选：<string[]>([])
 //加载所选路线方法
 const loadRoutes = () => {
   // 清除之前的路线显示
@@ -190,7 +191,7 @@ onMounted(async () => {
   // terrainProvider = await Cesium.createWorldTerrainAsync();
 
   //创建cesium的viewer对象
-  viewer.value = new Viewer('cesiumContainer',{
+  viewer.value = new Viewer(cesiumContainerRef.value as HTMLDivElement,{
     // terrainProvider,
     terrain: Cesium.Terrain.fromWorldTerrain(),//全球地形数据//全球地形数据
     //内置的 UI 控件
@@ -199,6 +200,7 @@ onMounted(async () => {
     timeline: false,// 必须为true显示时间线组件（如不想显示可以使用样式层叠表修改display：none） 否则viewer.timeline.zoomTo会报undefined错误
     homeButton: false,
     fullscreenButton: true,
+    fullscreenElement: document.getElementById('cesiumContainer') || undefined, // 指定全屏目标
     infoBox: false,
     sceneModePicker: false,
     navigationInstructionsInitiallyVisible: false,

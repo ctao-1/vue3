@@ -89,6 +89,9 @@ const navItems = ref([
   background-color: rgba(1, 1, 1, 0.2); /* 添加悬停背景色 */
 }
 .content {
-  padding: 20px;
+  margin-left: 190px; /* 留出侧边栏宽度+padding */
+  height: 100vh;      /* 高度占满屏幕 */
+  /* background: #f7f7f7; */
+  position: relative; /* 保证绝对定位子元素基于此容器 */
 }
 </style> -->

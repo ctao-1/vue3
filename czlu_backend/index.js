@@ -8,10 +8,12 @@ app.use(express.json())
 const placesRoute = require('./routes/places');
 const searchRoute = require('./routes/search')
 const imageRoute = require('./routes/image');
+const uploadingRoute = require('./routes/uploading');
 
 app.use('/api/search', searchRoute)
 app.use('/api/places', placesRoute);
 app.use('/api/image', imageRoute);
+app.use('/api/uploading', uploadingRoute);
 
 // 连接 PostgreSQL 数据库
 const PORT = 5000;
