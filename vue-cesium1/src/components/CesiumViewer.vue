@@ -12,7 +12,10 @@
         <option type="checkbox" value="changzheng2">红二方面军长征路线</option>
       </select>
       <button @click="loadRoutes">加载</button>
-      <button @click="startAnimation">动画</button>
+      <button @click="Animation?startAnimation():stopAnimation()">
+        <span v-if="Animation">动画</span>
+        <span v-else>结束</span>
+      </button>
     </div>
   </div>
     <div id="mouse-info">
@@ -51,6 +54,7 @@ const cartesianStr = ref('无')
 const elevationStr = ref('无')
 // 用于跟踪路线的显示状态
 const routeVisible = ref(true);
+const Animation = ref(true); // 控制动画的开关
 // const layerVisible = ref(true);
 // 将经纬度数组转换为Cartesian3数组
 const cartesian3Positions1 = changzheng1Coordinates.map((coord) => {
@@ -94,8 +98,9 @@ const changzhengEntity2 = new Entity({
 const changzhengEntities = ref<Entity[]>([])
 // 将路线实体添加到数组中
 changzhengEntities.value = [changzhengEntity1, changzhengEntity2];
-
 const selectedRoutes = ref(''); // 用于存储选中的单选框值 复选：<string[]>([])
+let soldierEntity: Entity;// 全局 soldierEntity 变量
+
 //加载所选路线方法
 const loadRoutes = () => {
   // 清除之前的路线显示
@@ -139,6 +144,9 @@ function addUniformSpeedSamples(positions: Cartesian3[], startTime: JulianDate, 
 // 动画按钮点击事件
 const startAnimation = async() => {
   if (!viewer.value) return;
+  // 显示动画控件
+  // const animationWidget = viewer.value.animation?.container;
+  // if (animationWidget) (animationWidget as HTMLElement).style.display = 'block';
   if (selectedRoutes.value.length > 0) {
     const startTime = JulianDate.now();
     const totalDuration = 6400; // 总动画时间（秒）
@@ -166,14 +174,26 @@ const startAnimation = async() => {
     }
     // 将小人实体设置为跟踪目标
     viewer.value.trackedEntity = soldierEntity;
+    Animation.value = false; // 切换动画状态
   }
 }
 
-// 1. 全局 terrainProvider
-// let terrainProvider: Cesium.TerrainProvider | null = null;
+const stopAnimation = () => {
+  if (!viewer.value) return;
+  // 隐藏动画控件
+  // const animationWidget = viewer.value.animation?.container;
+  // if (animationWidget) (animationWidget as HTMLElement).style.display = 'none';
+  viewer.value.clock.shouldAnimate = false;// 停止动画
+  viewer.value.trackedEntity = undefined;// 取消跟踪实体
 
-// 全局 soldierEntity 变量
-let soldierEntity: Entity;
+  // 重新生成空的 SampledPositionProperty
+    soldierEntity.position = new Cesium.SampledPositionProperty();
+  // 移除动画小人图标实体
+  if (soldierEntity && viewer.value.entities.contains(soldierEntity)) {
+    viewer.value.entities.remove(soldierEntity);
+  }
+  Animation.value = true; // 切换动画状态
+};
 
 // 2. getGroundPositions 使用全局 terrainProvider
 async function getGroundPositions(coords: number[][]) {
@@ -188,11 +208,9 @@ async function getGroundPositions(coords: number[][]) {
 onMounted(async () => {
   Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI1MThkNmVjMi1kZjU3LTRiYjUtOGM2ZC0wYjk2YzFlNTE5YzUiLCJpZCI6MjcwODk5LCJpYXQiOjE3Mzc2MDc1NDh9.Wpl35AaD3rKSqskH_gRtGNnAYDnaAy9C3vZsU8jkTHw';
   (window as any).CESIUM_BASE_URL = '/public/static/cesiumAssets'//设置cesium的静态资源地址
-  // terrainProvider = await Cesium.createWorldTerrainAsync();
 
   //创建cesium的viewer对象
   viewer.value = new Viewer(cesiumContainerRef.value as HTMLDivElement,{
-    // terrainProvider,
     terrain: Cesium.Terrain.fromWorldTerrain(),//全球地形数据//全球地形数据
     //内置的 UI 控件
     baseLayerPicker: false,
@@ -205,7 +223,7 @@ onMounted(async () => {
     sceneModePicker: false,
     navigationInstructionsInitiallyVisible: false,
     navigationHelpButton: false,
-    animation: true,
+    animation: true,// 默认不显示动画控件
     shouldAnimate: true
   });
 
