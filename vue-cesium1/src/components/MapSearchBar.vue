@@ -110,7 +110,7 @@ emitter.on('show-place-detail', async (place) => {
   z-index: 1000; 
   background-color: rgba(0, 0, 0, 0.6);
   max-width: 260px;
-  padding: 8px;
+  padding: 5px;
   border-radius: 6px;
   font-family: sans-serif;
 }
@@ -118,7 +118,6 @@ emitter.on('show-place-detail', async (place) => {
 .search-row {
   gap: 8px;
   align-items: center;
-  margin-bottom: 4px;
 }
 
 .search-icon {

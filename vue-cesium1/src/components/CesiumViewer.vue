@@ -13,7 +13,7 @@
       </select>
       <button @click="loadRoutes">加载</button>
       <button @click="Animation?startAnimation():stopAnimation()">
-        <span v-if="Animation">动画</span>
+        <span v-if="Animation">漫游</span>
         <span v-else>结束</span>
       </button>
     </div>
@@ -211,7 +211,7 @@ onMounted(async () => {
 
   //创建cesium的viewer对象
   viewer.value = new Viewer(cesiumContainerRef.value as HTMLDivElement,{
-    terrain: Cesium.Terrain.fromWorldTerrain(),//全球地形数据//全球地形数据
+    terrain: Cesium.Terrain.fromWorldTerrain(),//全球地形数据
     //内置的 UI 控件
     baseLayerPicker: false,
     geocoder: false, // 启用搜索框（默认true）

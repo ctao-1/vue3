@@ -4,6 +4,8 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
+router.push('/cesium'); // 默认导航到 cesium 页面
+
 const navigateTo = (path: string) => {
   console.log('Navigating to:', path); // 调试信息
   if (!path) {
@@ -14,8 +16,8 @@ const navigateTo = (path: string) => {
 };
 
 const navItems = ref([
-  { name: '🔍可视化界面', path: '/cesium' },
-  { name: '🔍数据管理', path: '/datatable' },
+  { name: '🌐可视化界面', path: '/cesium' },
+  { name: '➕数据添加', path: '/datatable' },
 ]);
 </script>
 
