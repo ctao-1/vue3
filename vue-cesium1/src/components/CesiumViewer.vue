@@ -68,7 +68,7 @@ const cartesian3Positions2 = changzheng2Coordinates.map((coord) => {
 const changzhengEntity1 = new Entity({
   polyline: new PolylineGraphics({
     positions: cartesian3Positions1,
-    width: 5,
+    width: 6,
     material: new PolylineGlowMaterialProperty({  // 发光效果
       glowPower: 0.2,
       color: Color.RED
@@ -83,7 +83,7 @@ const changzhengEntity1 = new Entity({
 const changzhengEntity2 = new Entity({
   polyline: new PolylineGraphics({
     positions: cartesian3Positions2,
-    width: 5,
+    width: 6,
     material: new PolylineGlowMaterialProperty({  // 发光效果
       glowPower: 0.2,
       color: Color.BLUE
@@ -141,15 +141,21 @@ function addUniformSpeedSamples(positions: Cartesian3[], startTime: JulianDate, 
   }
 }
 
+// 2. getGroundPositions 使用全局 terrainProvider
+async function getGroundPositions(coords: number[][]) {
+  const cartographics = coords.map(coord => Cartographic.fromDegrees(coord[0], coord[1]));
+  // if (!terrainProvider) return [];
+  const terrainProvider = await Cesium.createWorldTerrainAsync();
+  const sampled = await Cesium.sampleTerrainMostDetailed(terrainProvider, cartographics);
+  return sampled.map(cg => Cartesian3.fromRadians(cg.longitude, cg.latitude, cg.height));
+}
+
 // 动画按钮点击事件
 const startAnimation = async() => {
   if (!viewer.value) return;
-  // 显示动画控件
-  // const animationWidget = viewer.value.animation?.container;
-  // if (animationWidget) (animationWidget as HTMLElement).style.display = 'block';
   if (selectedRoutes.value.length > 0) {
     const startTime = JulianDate.now();
-    const totalDuration = 6400; // 总动画时间（秒）
+    const totalDuration = 14400; // 总动画时间（秒）
     const stopTime = JulianDate.addSeconds(startTime, totalDuration, new JulianDate());
 
     const clock = viewer.value.clock
@@ -195,15 +201,6 @@ const stopAnimation = () => {
   Animation.value = true; // 切换动画状态
 };
 
-// 2. getGroundPositions 使用全局 terrainProvider
-async function getGroundPositions(coords: number[][]) {
-  const cartographics = coords.map(coord => Cartographic.fromDegrees(coord[0], coord[1]));
-  // if (!terrainProvider) return [];
-  const terrainProvider = await Cesium.createWorldTerrainAsync();
-  const sampled = await Cesium.sampleTerrainMostDetailed(terrainProvider, cartographics);
-  return sampled.map(cg => Cartesian3.fromRadians(cg.longitude, cg.latitude, cg.height));
-}
-
 //vue生命周期钩子函数
 onMounted(async () => {
   Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI1MThkNmVjMi1kZjU3LTRiYjUtOGM2ZC0wYjk2YzFlNTE5YzUiLCJpZCI6MjcwODk5LCJpYXQiOjE3Mzc2MDc1NDh9.Wpl35AaD3rKSqskH_gRtGNnAYDnaAy9C3vZsU8jkTHw';
@@ -237,8 +234,8 @@ onMounted(async () => {
     position: new SampledPositionProperty(),
     billboard: {
       image: '/static/images/红军.png',
-      width: 100,
-      height: 100,
+      width: 60,
+      height: 60,
       heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
     },
   });

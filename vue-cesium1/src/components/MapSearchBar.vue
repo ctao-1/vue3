@@ -74,7 +74,6 @@ const performSearch = async () => {
     console.error('搜索失败:', err)
   }
 }
-
 const resultState = () => {
   resultsta.value = false
 }
@@ -135,7 +134,7 @@ emitter.on('show-place-detail', async (place) => {
 
 .search-button {
   padding: 6px;
-  background-color: rgba(101, 100, 100, 0.9);
+  background-color: rgba(228, 243, 250, 0.9);
   color: rgb(60, 62, 155);
   border: none;
   border-radius: 4px;
@@ -144,7 +143,7 @@ emitter.on('show-place-detail', async (place) => {
 
 .search-results {
   position: fixed;
-  top: 48px; /* 根据输入框高度微调 */
+  top: 40px; /* 根据输入框高度微调 */
   left: 0;
   width: 100%;
   gap: 8px;

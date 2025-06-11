@@ -24,7 +24,7 @@ const loadPointEntities = async () => {
         }),
         label: new Cesium.LabelGraphics({
           text: point.place_name,
-          font: '12px sans-serif',
+          font: '15px sans-serif',
           fillColor: Cesium.Color.WHITE,
           style: Cesium.LabelStyle.FILL_AND_OUTLINE,
           outlineWidth: 1,// 描边宽度
@@ -36,7 +36,6 @@ const loadPointEntities = async () => {
         })
       })
       viewer.value.entities.add(entity)
-
       // 添加点击事件
       entity.description = '点击查看详情'
     })

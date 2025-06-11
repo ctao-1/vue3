@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [vue(),cesium()],
   server:{
     port:5175,//自定义端口号
-    allowedHosts: ["daa6-112-4-238-245.ngrok-free.app" +
+    allowedHosts: ["df3a-240e-400-6e28-11a2-156f-6c25-309a-26bf.ngrok-free.app" +
     ""]
   },
 })
