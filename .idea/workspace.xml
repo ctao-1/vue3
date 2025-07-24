@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="38307619-7f50-4cc9-929a-5846de57c363" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-cesium1/src/coordinates/changzhengGroute.ts" beforeDir="false" afterPath="$PROJECT_DIR$/vue-cesium1/src/coordinates/changzhengGroute.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,6 +100,9 @@
       <workItem from="1750143294130" duration="2616000" />
       <workItem from="1750659904427" duration="2517000" />
       <workItem from="1752656147342" duration="21000" />
+      <workItem from="1752810428202" duration="2002000" />
+      <workItem from="1752904695742" duration="11000" />
+      <workItem from="1752907422991" duration="846000" />
     </task>
     <servers />
   </component>

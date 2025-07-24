@@ -1,8 +1,7 @@
 <template>
   <div>
   <div id="cesiumContainer" ref="cesiumContainerRef">
-    <MapSearchBar /><CesiumPointLoader />
-    <LayerDropdown />
+    <MapSearchBar /><CesiumPointLoader /><LayerDropdown /><switch3D />
     <!-- <button id="toggleRouteButton" @click="toggleRouteVisibility">{{ routeVisible ? '关闭路线' : '显示路线' }}</button> -->
     <!-- 复选框  -->
     <div id="routeDropdown">
@@ -41,6 +40,7 @@ import '../style.css'
 import MapSearchBar from './MapSearchBar.vue';
 import CesiumPointLoader from './CesiumPointLoader.vue'
 import LayerDropdown from './LayerDropdown.vue'
+import switch3D from './switch3D.vue';
 
 import { changzheng1Coordinates, changzheng2Coordinates }  from '../coordinates/changzhengGroute';
 import { tiandituEffect } from '../tianditu/tiandituEffect';
