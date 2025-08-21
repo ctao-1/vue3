@@ -63,13 +63,30 @@ const newRow = ref({
 })
 
 onMounted(async () => {
-  await fetchData()
+  // await fetchData()
+  var xmlhttp;
+  if(window.XMLHttpRequest){
+    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+    xmlhttp = new XMLHttpRequest();
+  } else {
+    // IE6, IE5 浏览器执行代码
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  };
+  xmlhttp.onreadystatechange = function(){
+    if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+      var xml = JSON.parse(xmlhttp.responseText);
+      tableData.value = xml;
+    }
+  }
+  xmlhttp.open("GET", "http://localhost:5000/api/places", true);//配置 AJAX 请求参数
+  xmlhttp.send();//向服务器发送配置好的 GET 请求
 })
 
-async function fetchData() {
-  const res = await axios.get('http://localhost:5000/api/places')
-  tableData.value = res.data
-}
+// async function fetchData() {
+//   const res = await axios.get('http://localhost:5000/api/places')
+//   tableData.value = res.data
+// }
+
 
 function startAdd() {
   addingRow.value = true

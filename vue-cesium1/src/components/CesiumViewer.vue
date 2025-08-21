@@ -220,7 +220,7 @@ onMounted(async () => {
     sceneModePicker: false,
     navigationInstructionsInitiallyVisible: false,
     navigationHelpButton: false,
-    animation: true,// 默认不显示动画控件
+    animation: false,// 默认不显示动画控件
     shouldAnimate: true
   });
 

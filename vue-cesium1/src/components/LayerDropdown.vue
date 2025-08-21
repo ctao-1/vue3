@@ -4,7 +4,6 @@ import '../style.css'
 import {ImageryLayer, UrlTemplateImageryProvider, Viewer, WebMercatorTilingScheme} from "cesium";
 
 const viewer = inject<Ref<Viewer | undefined>>('viewer')
-const selectLayers = ref<string[]>([]);
 const tk = 'aff67efbdd6b0daba90549b44b0d1c4d'
 // 天地图图层配置
 const tdtLayers = [
@@ -69,12 +68,10 @@ const toggleDropdown = () => {
 const changeLayer = (event: Event) => {
   // 获取用户选择的图层索引
   const selectedIndex = parseInt((event.target as HTMLSelectElement).value);
-
   // 如果当前已加载图层，先移除它
   if (currentLayer.value && viewer && viewer.value) {
     viewer.value.imageryLayers.remove(currentLayer.value);
   }
-
   // 根据选择的索引获取对应图层配置
   const layerConfig = tdtLayers[selectedIndex];
   const layer = new UrlTemplateImageryProvider({
@@ -82,12 +79,10 @@ const changeLayer = (event: Event) => {
     subdomains: ['0', '1', '2', '3', '4', '5', '6', '7'],
     tilingScheme: new WebMercatorTilingScheme()
   });
-
   // 将新图层添加到地图，并更新当前图层引用
   if (viewer && viewer.value) {
     currentLayer.value = viewer.value.imageryLayers.addImageryProvider(layer);
   }
-
   // 更新当前图层索引
   currentLayerIndex.value = selectedIndex;
 };
@@ -100,7 +95,7 @@ const changeLayer = (event: Event) => {
       <img src="https://cdn-icons-png.flaticon.com/512/854/854878.png" alt="地图图标" />
     </button>
     <!-- 下拉菜单 -->
-    <select id="layerSelect" v-show="dropdownVisible" v-model="selectLayers" @change="changeLayer" size="6">
+    <select id="layerSelect" v-show="dropdownVisible" @change="changeLayer" size="6">
       <option v-for="(layer, index) in tdtLayers" :key="index" :value="index">
         {{ layer.name }}
       </option>
@@ -110,5 +105,4 @@ const changeLayer = (event: Event) => {
 </template>
 
 <style scoped>
-
 </style>
