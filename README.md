@@ -1,5 +1,5 @@
 <h1>项目简介</h1>
-基于Vue3架构加载Cesium三维引擎实现地理信息可视化,使用Express.js作为后端框架，数据库是postgreSQL，CORS中间件实现数据传输，同时使用axios和jQuery两种数据请求方式
+基于Vue3架构加载Cesium三维引擎实现地理信息可视化,使用Express.js作为后端框架，数据库是postgreSQL，CORS中间件实现数据传输，参杂了Axios和AJAX两种数据接口请求方式
 <hr>
 <h2>1.vue-cesium1前端</h2>
 切换执行目录
