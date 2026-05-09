@@ -89,9 +89,9 @@ const changeLayer = (event: Event) => {
 </script>
 
 <template>
-  <div id="layerDropdown" @mouseleave="handleMouseLeave">
+  <div id="layerDropdown">
     <!-- 圆形按钮 -->
-    <button id="layerButton" @click="toggleDropdown" @mouseenter="handleMouseEnter">
+    <button id="layerButton" @click="toggleDropdown" @mouseenter="handleMouseEnter"  @mouseleave="handleMouseLeave">
       <img src="https://cdn-icons-png.flaticon.com/512/854/854878.png" alt="地图图标" />
     </button>
     <!-- 下拉菜单 -->
