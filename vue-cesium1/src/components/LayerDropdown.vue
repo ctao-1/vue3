@@ -4,7 +4,7 @@ import '../style.css'
 import {ImageryLayer, UrlTemplateImageryProvider, Viewer, WebMercatorTilingScheme} from "cesium";
 
 const viewer = inject<Ref<Viewer | undefined>>('viewer')
-const tk = 'aff67efbdd6b0daba90549b44b0d1c4d'
+const tk = 'your key'
 // 天地图图层配置
 const tdtLayers = [
   {
